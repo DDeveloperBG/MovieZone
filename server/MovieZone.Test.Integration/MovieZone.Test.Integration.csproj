@@ -24,7 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\MovieZone\MovieZone.csproj" />
+	  <ProjectReference Include="..\MovieZone\MovieZone.csproj" />
 	</ItemGroup>
 
 </Project>

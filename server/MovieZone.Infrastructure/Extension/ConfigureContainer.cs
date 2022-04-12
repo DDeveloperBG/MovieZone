@@ -1,5 +1,4 @@
-﻿// using HealthChecks.UI.Client;
-namespace MovieZone.Infrastructure.Extension
+﻿namespace MovieZone.Infrastructure.Extension
 {
     using HealthChecks.UI.Client;
     using Microsoft.AspNetCore.Builder;
@@ -23,7 +22,7 @@ namespace MovieZone.Infrastructure.Extension
 
             app.UseSwaggerUI(setupAction =>
             {
-                setupAction.SwaggerEndpoint("/swagger/OpenAPISpecification/swagger.json", "Onion Architecture API");
+                setupAction.SwaggerEndpoint("/swagger/OpenAPISpecification/swagger.json", "MovieZone API");
                 setupAction.RoutePrefix = "OpenAPI";
             });
         }

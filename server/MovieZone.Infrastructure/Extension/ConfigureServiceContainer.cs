@@ -2,57 +2,28 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
-    using System.IO;
-    using System.Reflection;
 
-    using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Diagnostics.HealthChecks;
     using Microsoft.OpenApi.Models;
-    using MovieZone.Domain.Settings;
-    using MovieZone.Infrastructure.Mapping;
-    using MovieZone.Persistence;
-    using MovieZone.Service.Contract;
-    using MovieZone.Service.Implementation;
+    using MovieZone.Data;
 
     public static class ConfigureServiceContainer
     {
         public static void AddDbContext(
             this IServiceCollection serviceCollection,
-            IConfiguration configuration,
-            IConfigurationRoot configRoot)
+            IConfiguration configuration)
         {
-            serviceCollection.AddDbContext<ApplicationDbContext>(options =>
-                   options.UseSqlServer(
-                       configuration.GetConnectionString("OnionArchConn") ?? configRoot["ConnectionStrings:OnionArchConn"],
-                       b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+            serviceCollection.AddDbContext<ApplicationDbContext>(
+                options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
         }
 
-        public static void AddAutoMapper(this IServiceCollection serviceCollection)
-        {
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new CustomerProfile());
-            });
-            IMapper mapper = mappingConfig.CreateMapper();
-            serviceCollection.AddSingleton(mapper);
-        }
-
-        public static void AddScopedServices(this IServiceCollection serviceCollection)
-        {
-            serviceCollection.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
-        }
-
-        public static void AddTransientServices(this IServiceCollection serviceCollection)
-        {
-            serviceCollection.AddTransient<IDateTimeService, DateTimeService>();
-            serviceCollection.AddTransient<IAccountService, AccountService>();
-        }
-
+        // public static void AddTransientServices(this IServiceCollection serviceCollection)
+        // {
+        // }
         public static void AddSwaggerOpenAPI(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddSwaggerGen(setupAction =>
@@ -100,13 +71,6 @@
             });
         }
 
-        public static void AddMailSetting(
-            this IServiceCollection serviceCollection,
-            IConfiguration configuration)
-        {
-            serviceCollection.Configure<MailSettings>(configuration.GetSection("MailSettings"));
-        }
-
         public static void AddController(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddControllers().AddNewtonsoftJson();
@@ -122,11 +86,11 @@
             });
         }
 
-        public static void AddHealthCheck(this IServiceCollection serviceCollection, AppSettings appSettings, IConfiguration configuration)
+        public static void AddHealthCheck(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
             serviceCollection.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>(name: "Application DB Context", failureStatus: HealthStatus.Degraded)
-                .AddUrlGroup(new Uri(appSettings.ApplicationDetail.ContactWebsite), name: "My personal website", failureStatus: HealthStatus.Degraded)
+                .AddUrlGroup(new Uri("https://localhost:44356/"), name: "My personal website", failureStatus: HealthStatus.Degraded)
                 .AddSqlServer(configuration.GetConnectionString("OnionArchConn"));
 
             serviceCollection.AddHealthChecksUI(setupSettings: setup =>

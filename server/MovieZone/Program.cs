@@ -18,3 +18,6 @@
                 });
     }
 }
+/*
+ Method 'GetServiceProviderHashCode' in type 'ExtensionInfo' from assembly 'Microsoft.EntityFrameworkCore.InMemory, Version=5.0.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60' does not have an implementation.
+ */

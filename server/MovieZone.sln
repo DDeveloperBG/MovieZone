@@ -9,13 +9,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieZone.Domain", "MovieZo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieZone.Infrastructure", "MovieZone.Infrastructure\MovieZone.Infrastructure.csproj", "{BE4435C6-D6EB-4F57-8BF7-01D9182495CD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieZone.Persistence", "MovieZone.Persistence\MovieZone.Persistence.csproj", "{4010EEB0-FABA-4C42-B601-5EBDB32F8683}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieZone.Service", "MovieZone.Service\MovieZone.Service.csproj", "{724073E4-7F06-4A1E-B864-2D8A86B8E509}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieZone.Test.Integration", "MovieZone.Test.Integration\MovieZone.Test.Integration.csproj", "{037CAEF0-11FE-4B5D-A28D-774E09084774}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieZone.Test.Unit", "MovieZone.Test.Unit\MovieZone.Test.Unit.csproj", "{B95B75B0-DFFF-489C-9FB7-41F6D33E8C37}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieZone.Persistence", "MovieZone.Persistence\MovieZone.Persistence.csproj", "{39FF70B6-0594-496A-9F7F-CDD8A8DE7F0B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieZone.Persistence.Common", "MovieZone.Persistence.Common\MovieZone.Persistence.Common.csproj", "{647D994F-0F59-47C5-8535-9B4CED56EA2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieZone.Common", "MovieZone.Common\MovieZone.Common.csproj", "{AB47E827-A5DD-444C-A335-95084CAE6EA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +39,6 @@ Global
 		{BE4435C6-D6EB-4F57-8BF7-01D9182495CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE4435C6-D6EB-4F57-8BF7-01D9182495CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE4435C6-D6EB-4F57-8BF7-01D9182495CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4010EEB0-FABA-4C42-B601-5EBDB32F8683}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4010EEB0-FABA-4C42-B601-5EBDB32F8683}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4010EEB0-FABA-4C42-B601-5EBDB32F8683}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4010EEB0-FABA-4C42-B601-5EBDB32F8683}.Release|Any CPU.Build.0 = Release|Any CPU
 		{724073E4-7F06-4A1E-B864-2D8A86B8E509}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{724073E4-7F06-4A1E-B864-2D8A86B8E509}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{724073E4-7F06-4A1E-B864-2D8A86B8E509}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +51,18 @@ Global
 		{B95B75B0-DFFF-489C-9FB7-41F6D33E8C37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B95B75B0-DFFF-489C-9FB7-41F6D33E8C37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B95B75B0-DFFF-489C-9FB7-41F6D33E8C37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39FF70B6-0594-496A-9F7F-CDD8A8DE7F0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39FF70B6-0594-496A-9F7F-CDD8A8DE7F0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39FF70B6-0594-496A-9F7F-CDD8A8DE7F0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39FF70B6-0594-496A-9F7F-CDD8A8DE7F0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{647D994F-0F59-47C5-8535-9B4CED56EA2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{647D994F-0F59-47C5-8535-9B4CED56EA2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{647D994F-0F59-47C5-8535-9B4CED56EA2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{647D994F-0F59-47C5-8535-9B4CED56EA2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB47E827-A5DD-444C-A335-95084CAE6EA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB47E827-A5DD-444C-A335-95084CAE6EA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB47E827-A5DD-444C-A335-95084CAE6EA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB47E827-A5DD-444C-A335-95084CAE6EA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
