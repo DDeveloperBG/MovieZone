@@ -6,6 +6,8 @@
     using Microsoft.EntityFrameworkCore.Design;
     using Microsoft.Extensions.Configuration;
 
+    using MovieZone.Common;
+
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
     {
         public ApplicationDbContext CreateDbContext(string[] args)
@@ -16,7 +18,7 @@
                 .Build();
 
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var connectionString = configuration.GetConnectionString(GlobalConstants.AppSettings.DatabaseConnectionKey);
             builder.UseSqlServer(connectionString);
 
             return new ApplicationDbContext(builder.Options);
