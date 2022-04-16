@@ -21,7 +21,7 @@
             if (configuration.GetValue<bool>("UseInMemoryDatabase"))
             {
                 serviceCollection.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseInMemoryDatabase("IdentityDb"));
+                    options.UseInMemoryDatabase("MovieZoneDb"));
             }
             else
             {

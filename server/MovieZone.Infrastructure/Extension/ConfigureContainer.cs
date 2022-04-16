@@ -37,7 +37,7 @@
 
         public static void UseHealthCheck(this IApplicationBuilder app)
         {
-            app.UseHealthChecks("/healthz", new HealthCheckOptions
+            app.UseHealthChecks("/health", new HealthCheckOptions
             {
                 Predicate = _ => true,
                 ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
