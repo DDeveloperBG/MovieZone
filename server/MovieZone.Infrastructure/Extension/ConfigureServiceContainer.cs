@@ -9,6 +9,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Diagnostics.HealthChecks;
     using Microsoft.OpenApi.Models;
+    using MovieZone.Common;
     using MovieZone.Data;
 
     public static class ConfigureServiceContainer
@@ -17,8 +18,16 @@
             this IServiceCollection serviceCollection,
             IConfiguration configuration)
         {
-            serviceCollection.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            if (configuration.GetValue<bool>("UseInMemoryDatabase"))
+            {
+                serviceCollection.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseInMemoryDatabase("MovieZoneDb"));
+            }
+            else
+            {
+                serviceCollection.AddDbContext<ApplicationDbContext>(
+                    options => options.UseSqlServer(configuration.GetConnectionString(GlobalConstants.AppSettings.DatabaseConnectionKey)));
+            }
         }
 
         // public static void AddTransientServices(this IServiceCollection serviceCollection)
@@ -29,23 +38,11 @@
             serviceCollection.AddSwaggerGen(setupAction =>
             {
                 setupAction.SwaggerDoc(
-                    "OpenAPISpecification",
+                    "v1",
                     new OpenApiInfo()
                     {
-                        Title = "Onion Architecture WebAPI",
+                        Title = "MovieZone",
                         Version = "1",
-                        Description = "Through this API you can access customer details",
-                        Contact = new OpenApiContact()
-                        {
-                            Email = "amit.naik8103@gmail.com",
-                            Name = "Amit Naik",
-                            Url = new Uri("https://amitpnk.github.io/"),
-                        },
-                        License = new OpenApiLicense()
-                        {
-                            Name = "MIT License",
-                            Url = new Uri("https://opensource.org/licenses/MIT"),
-                        },
                     });
 
                 setupAction.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -55,6 +52,7 @@
                     BearerFormat = "JWT",
                     Description = $"Input your Bearer token in this format - Bearer token to access this API",
                 });
+
                 setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
@@ -90,7 +88,7 @@
         {
             serviceCollection.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>(name: "Application DB Context", failureStatus: HealthStatus.Degraded)
-                .AddUrlGroup(new Uri("https://localhost:44356/"), name: "My personal website", failureStatus: HealthStatus.Degraded)
+                .AddUrlGroup(new Uri(configuration.GetValue<string>("applicationUrl")), name: "MovieZone", failureStatus: HealthStatus.Degraded)
                 .AddSqlServer(configuration.GetConnectionString("OnionArchConn"));
 
             serviceCollection.AddHealthChecksUI(setupSettings: setup =>

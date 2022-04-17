@@ -3,6 +3,7 @@
     using System.Reflection;
 
     using HealthChecks.UI.Client;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Diagnostics.HealthChecks;
     using Microsoft.AspNetCore.Hosting;
@@ -14,12 +15,14 @@
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using Microsoft.FeatureManagement;
+
     using MovieZone.Data;
     using MovieZone.Data.Seeding;
     using MovieZone.Infrastructure.Extension;
     using MovieZone.Service;
     using MovieZone.Service.DTOs;
     using MovieZone.Services.Mapping;
+
     using Serilog;
 
     public class Startup
@@ -51,7 +54,7 @@
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory log)
         {
-            AutoMapperConfig.RegisterMappings(typeof(Root).GetTypeInfo().Assembly);
+            AutoMapperConfig.RegisterMappings(typeof(RootDto).GetTypeInfo().Assembly);
 
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {

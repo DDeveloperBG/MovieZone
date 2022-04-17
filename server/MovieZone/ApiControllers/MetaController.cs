@@ -12,7 +12,7 @@
     public class MetaController : ControllerBase
     {
         [HttpGet("/info")]
-        public ActionResult<string> Info()
+        public IActionResult Info()
         {
             var assembly = typeof(Startup).Assembly;
 
