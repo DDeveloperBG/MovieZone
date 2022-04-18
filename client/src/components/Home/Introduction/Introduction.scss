@@ -1,0 +1,51 @@
+#introduction-wrapper {
+  #introduction-background {
+    background-image: url("../../../../public/assets/img/introduction-background-img.jpg");
+
+    filter: blur(4px);
+
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  #enjoy-text {
+    font-size: 1.4rem;
+  }
+
+  #blink-emojy {
+    font-size: 3rem;
+  }
+
+  #introduction-text-wrapper {
+    border: 3px solid #f1f1f1;
+    background: #ffffffd4;
+    width: 43%;
+    padding: 20px;
+    text-align: start;
+  }
+
+  #couple {
+    width: 100%;
+    border-radius: 5px;
+  }
+
+  #introduction-register-btn {
+    white-space: nowrap;
+  }
+
+  @media only screen and (max-width: 1600px) {
+    #introduction-text-wrapper {
+      text-align: center !important;
+      width: 100%;
+    }
+
+    #couple-wrapper {
+      display: none;
+    }
+  }
+}
