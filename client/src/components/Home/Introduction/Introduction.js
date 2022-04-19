@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Introduction() {
   return (
-    <div id="introduction-wrapper">
+    <div id="introduction-wrapper" className="pb-5">
       <div id="introduction-background"></div>
       <div className="pt-5">
         <table className="container p-5 card" id="introduction-text-wrapper">
@@ -20,7 +20,7 @@ function Introduction() {
                   Now you can watch movies at the same time with your friends,
                   soul mate and so on. You can talk, pause, play, change the
                   scene and <strong id="enjoy-text">enjoy</strong>
-                  <span id="blink-emojy">&#128521;</span>
+                  <span id="blink-emoji">&#128521;</span>
                 </p>
                 <Link
                   to="/register"
