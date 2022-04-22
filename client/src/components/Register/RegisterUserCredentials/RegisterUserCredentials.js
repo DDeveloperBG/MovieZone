@@ -1,8 +1,8 @@
 import { Container, Row, Form, Button } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
-import "./Register.scss";
+import { Link } from "react-router-dom";
+import "./RegisterUserCredentials.scss";
 
-function Register() {
+function RegisterUserCredentials() {
   return (
     <Container id="registration-wrapper" className="mt-4">
       <div style={{ display: "flex" }}>
@@ -17,7 +17,7 @@ function Register() {
               <Row className="text-center">
                 <h4 className="col-4">Sign up</h4>
                 <span className="col-4 h4">
-                  <NavLink to="/login">Sign in</NavLink>
+                  <Link to="/login">Sign in</Link>
                 </span>
               </Row>
               <Form id="register-form" className="p-3">
@@ -39,14 +39,16 @@ function Register() {
                     placeholder="Add a Password"
                   ></Form.Control>
                 </Form.Group>
-                <Form.Group className="pt-3">
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    className="rounded mt-3"
-                  >
-                    Submit
-                  </Button>
+                <Form.Group className="pt-2">
+                  <Link to="/register/payment/method">
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      className="rounded mt-3"
+                    >
+                      Submit
+                    </Button>
+                  </Link>
                 </Form.Group>
               </Form>
             </div>
@@ -66,4 +68,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default RegisterUserCredentials;

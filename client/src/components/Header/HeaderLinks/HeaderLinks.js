@@ -16,7 +16,7 @@ function HeaderLinks() {
         </Link>
         <Link
           id="register-btn"
-          to="/register"
+          to="/register/user/credentials"
           className="btn btn-outline-danger rounded-pill order-0"
         >
           Sign Up

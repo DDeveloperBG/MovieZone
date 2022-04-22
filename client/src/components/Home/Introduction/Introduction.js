@@ -29,7 +29,7 @@ function Introduction() {
                   <span id="blink-emoji">&#128521;</span>
                 </p>
                 <Link
-                  to="/register"
+                  to="/register/user/credentials"
                   className="btn btn-lg btn-danger hover-top btn-glow"
                   id="introduction-register-btn"
                 >
