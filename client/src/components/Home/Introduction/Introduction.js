@@ -14,7 +14,13 @@ function Introduction() {
                   Want to watch movies
                   <br />
                   together? Do it with{" "}
-                  <span className="fw-bold">MovieZone.</span>
+                  <span className="fw-bold">
+                    Movie
+                    <span className="fw-bold" style={{ color: "#F53838" }}>
+                      Zone
+                    </span>
+                    .
+                  </span>
                 </h1>
                 <p className="mt-3 mb-4">
                   Now you can watch movies at the same time with your friends,
