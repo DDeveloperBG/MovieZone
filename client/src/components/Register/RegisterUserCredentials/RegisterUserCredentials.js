@@ -1,5 +1,6 @@
-import { Container, Row, Form, Button } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import RegisterUserCredentialsForm from "./RegisterUserCredentialsForm/RegisterUserCredentialsForm";
 import "./RegisterUserCredentials.scss";
 
 function RegisterUserCredentials() {
@@ -20,37 +21,7 @@ function RegisterUserCredentials() {
                   <Link to="/login">Sign in</Link>
                 </span>
               </Row>
-              <Form id="register-form" className="p-3">
-                <Form.Group>
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Username"
-                  ></Form.Control>
-                </Form.Group>
-                <Form.Group className="mt-3">
-                  <Form.Label>Email address</Form.Label>
-                  <Form.Control type="email" placeholder="Email"></Form.Control>
-                </Form.Group>
-                <Form.Group className="mt-3">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Add a Password"
-                  ></Form.Control>
-                </Form.Group>
-                <Form.Group className="pt-2">
-                  <Link to="/register/payment/method">
-                    <Button
-                      variant="primary"
-                      type="submit"
-                      className="rounded mt-3"
-                    >
-                      Submit
-                    </Button>
-                  </Link>
-                </Form.Group>
-              </Form>
+              <RegisterUserCredentialsForm />
             </div>
           </div>
           <div id="register-picture" className="col-lg-4 col-md-0 col-sm-0">
