@@ -1,8 +1,11 @@
-import { Form, Button } from "react-bootstrap";
-import { auth } from "../../../../utils/firebase";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Form, Button } from "react-bootstrap";
+
+import { auth } from "../../../../utils/firebase";
 import FormComponentError from "../../../Shared/FormComponentError/FormComponentError";
+import { registerUser } from "../../../../services/authService";
+
 import "./RegisterUserCredentialsForm.css";
 
 function RegisterUserCredentialsForm() {
@@ -37,9 +40,10 @@ function RegisterUserCredentialsForm() {
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
         navigate("/register/payment/method");
-        return userCredential.user.updateProfile({
+        userCredential.user.updateProfile({
           displayName: username,
         });
+        registerUser(username);
       })
       .catch((error) => {
         console.log(error.code);

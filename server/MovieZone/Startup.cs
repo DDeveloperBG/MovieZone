@@ -27,27 +27,30 @@
 
     public class Startup
     {
+        private readonly IConfiguration configuration;
+
         public Startup(IConfiguration configuration)
         {
             Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
-            this.Configuration = configuration;
+            this.configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddController();
 
-            services.AddDbContext(this.Configuration);
+            services.AddDbContext(this.configuration);
 
             services.AddSwaggerOpenAPI();
 
-            services.AddServiceLayer();
+            services.AddScopedServices();
+            services.AddTransientServices(this.configuration);
 
             services.AddVersion();
 
-            services.AddHealthCheck(this.Configuration);
+            services.AddHealthCheck(this.configuration);
+
+            services.AddFirebaseAuth(this.configuration);
 
             services.AddFeatureManagement();
         }
@@ -84,8 +87,8 @@
             app.UseRouting();
 
             app.UseAuthentication();
-
             app.UseAuthorization();
+
             app.ConfigureSwagger();
 
             app.UseHealthChecks("/healthz", new HealthCheckOptions
@@ -102,7 +105,7 @@
              {
                  setup.ApiPath = "/healthcheck";
                  setup.UIPath = "/healthcheck-ui";
-              });
+             });
 
             app.UseEndpoints(endpoints =>
             {

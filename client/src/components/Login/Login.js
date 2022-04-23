@@ -33,11 +33,7 @@ function Login() {
 
     auth
       .signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-        navigate("/");
-      })
+      .then((_) => navigate("/"))
       .catch((error) => {
         console.log(error.code);
 
