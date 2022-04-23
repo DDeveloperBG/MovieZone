@@ -14,6 +14,7 @@ function RegisterUserCredentialsForm() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    const username = e.target.username.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
 
@@ -24,9 +25,9 @@ function RegisterUserCredentialsForm() {
         },
       };
     };
-    usernameOnChange(getMockEventObj(e.target.username.value));
-    emailOnChange(getMockEventObj(e.target.email.value));
-    passwordOnChange(getMockEventObj(e.target.password.value));
+    usernameOnChange(getMockEventObj(username));
+    emailOnChange(getMockEventObj(email));
+    passwordOnChange(getMockEventObj(password));
 
     if (usernameError || emailError || passwordError) {
       return;
@@ -35,9 +36,10 @@ function RegisterUserCredentialsForm() {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
         navigate("/register/payment/method");
+        return userCredential.user.updateProfile({
+          displayName: username,
+        });
       })
       .catch((error) => {
         console.log(error.code);
