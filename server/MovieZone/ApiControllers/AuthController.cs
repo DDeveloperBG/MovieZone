@@ -18,6 +18,15 @@
             this.userService = userService;
         }
 
+        [HttpGet]
+        public IActionResult CheckIsUsernameUsed([FromQuery] string username)
+        {
+            bool isUsernameUsed = this.userService.CheckIsUsernameUsed(username);
+            var responce = new { isUsernameUsed };
+
+            return this.Ok(responce);
+        }
+
         [HttpPost]
         public async Task<IActionResult> RegisterUserAsync([FromBody] RegisterUserInput input)
         {

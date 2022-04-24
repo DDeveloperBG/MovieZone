@@ -194,9 +194,6 @@ namespace MovieZone.Persistence.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FirebaseUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -238,8 +235,6 @@ namespace MovieZone.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FirebaseUserId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -248,17 +243,11 @@ namespace MovieZone.Persistence.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("UserName");
+
+                    SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("UserName"), false);
+
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("MovieZone.Domain.Entities.FirebaseUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FirebaseUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -310,15 +299,6 @@ namespace MovieZone.Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MovieZone.Data.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("MovieZone.Domain.Entities.FirebaseUser", "FirebaseUser")
-                        .WithMany()
-                        .HasForeignKey("FirebaseUserId");
-
-                    b.Navigation("FirebaseUser");
                 });
 
             modelBuilder.Entity("MovieZone.Data.Models.ApplicationUser", b =>

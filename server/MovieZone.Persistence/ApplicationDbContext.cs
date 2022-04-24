@@ -45,6 +45,11 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder
+                .Entity<ApplicationUser>()
+                .HasIndex(e => e.UserName)
+                .IsClustered(false);
+
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 

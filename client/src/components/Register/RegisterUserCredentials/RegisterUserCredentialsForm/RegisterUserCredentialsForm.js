@@ -4,7 +4,10 @@ import { Form, Button } from "react-bootstrap";
 
 import { auth } from "../../../../utils/firebase";
 import FormComponentError from "../../../Shared/FormComponentError/FormComponentError";
-import { registerUser } from "../../../../services/authService";
+import {
+  checkIsUsernameUsed,
+  registerUser,
+} from "../../../../services/authService";
 
 import "./RegisterUserCredentialsForm.css";
 
@@ -15,8 +18,13 @@ function RegisterUserCredentialsForm() {
 
   const navigate = useNavigate();
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+
+    if (usernameError || emailError || passwordError) {
+      return;
+    }
+
     const username = e.target.username.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
@@ -28,24 +36,27 @@ function RegisterUserCredentialsForm() {
         },
       };
     };
-    usernameOnChange(getMockEventObj(username));
-    emailOnChange(getMockEventObj(email));
-    passwordOnChange(getMockEventObj(password));
 
-    if (usernameError || emailError || passwordError) {
+    try {
+      usernameOnChange(getMockEventObj(username), true);
+      emailOnChange(getMockEventObj(email), true);
+      passwordOnChange(getMockEventObj(password), true);
+      await usernameOnBlur(getMockEventObj(username), true);
+    } catch {
       return;
     }
 
     auth
       .createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         navigate("/register/payment/method");
-        userCredential.user.updateProfile({
+        await registerUser(username);
+        await userCredential.user.updateProfile({
           displayName: username,
         });
-        registerUser(username);
       })
       .catch((error) => {
+        auth.signOut();
         console.log(error.code);
 
         switch (error.code) {
@@ -64,28 +75,51 @@ function RegisterUserCredentialsForm() {
       });
   };
 
-  const usernameOnChange = (e) => {
+  const usernameOnChange = (e, shouldThrowError) => {
     const username = e.target.value;
     if (username === "") {
       setUsernameError("Username is required.");
-    } else {
+    } else if (usernameError !== "Username is already used.") {
       setUsernameError("");
     }
   };
 
-  const emailOnChange = (e) => {
+  const usernameOnBlur = async (e, shouldThrowError) => {
+    const username = e.target.value;
+    const isUsernameUsed = await checkIsUsernameUsed(username);
+
+    if (isUsernameUsed) {
+      setUsernameError("Username is already used.");
+
+      if (shouldThrowError) {
+        throw new Error();
+      }
+    } else if (usernameError === "Username is already used.") {
+      setUsernameError("");
+    }
+  };
+
+  const emailOnChange = (e, shouldThrowError) => {
     const email = e.target.value;
     if (email === "") {
       setEmailError("Email is required.");
+
+      if (shouldThrowError) {
+        throw new Error();
+      }
     } else {
       setEmailError("");
     }
   };
 
-  const passwordOnChange = (e) => {
+  const passwordOnChange = (e, shouldThrowError) => {
     const password = e.target.value;
     if (password === "") {
       setPasswordError("Password is required.");
+
+      if (shouldThrowError) {
+        throw new Error();
+      }
     } else {
       setPasswordError("");
     }
@@ -99,7 +133,9 @@ function RegisterUserCredentialsForm() {
           type="text"
           name="username"
           placeholder="Username"
+          onBlur={usernameOnBlur}
           onChange={usernameOnChange}
+          autoComplete="false"
         ></Form.Control>
         <FormComponentError message={usernameError} />
       </Form.Group>

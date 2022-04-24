@@ -4,6 +4,8 @@
 
     public interface IUserService
     {
+        bool CheckIsUsernameUsed(string username);
+
         Task RegisterAsync(string idToken, string username);
     }
 }
