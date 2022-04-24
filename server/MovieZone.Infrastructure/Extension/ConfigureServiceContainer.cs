@@ -37,19 +37,19 @@
             this IServiceCollection serviceCollection,
             IConfiguration configuration)
         {
-            string firebaseAppId = configuration.GetValue<string>("FIREBASE-APP-ID");
             serviceCollection
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+                .AddJwtBearer(opt =>
                 {
-                    options.Authority = $"https://securetoken.google.com/{firebaseAppId}";
-                    options.TokenValidationParameters = new TokenValidationParameters
+                    opt.Authority = configuration["Jwt:Firebase:ValidIssuer"];
+                    opt.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
-                        ValidIssuer = $"https://securetoken.google.com/{firebaseAppId}",
                         ValidateAudience = true,
-                        ValidAudience = firebaseAppId,
                         ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = configuration["Jwt:Firebase:ValidIssuer"],
+                        ValidAudience = configuration["Jwt:Firebase:ValidAudience"],
                     };
                 });
         }
