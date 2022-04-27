@@ -1,6 +1,6 @@
 import { Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import RegisterUserCredentialsForm from "./RegisterUserCredentialsForm/RegisterUserCredentialsForm";
+import RegisterUserCredentialsForm from "../RegisterUserCredentialsForm/RegisterUserCredentialsForm";
 import "./RegisterUserCredentials.scss";
 
 function RegisterUserCredentials() {

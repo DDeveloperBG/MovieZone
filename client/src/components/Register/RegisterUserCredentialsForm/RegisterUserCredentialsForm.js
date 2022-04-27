@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 
-import { auth } from "../../../../utils/firebase";
-import FormComponentError from "../../../Shared/FormComponentError/FormComponentError";
+import { auth } from "../../../utils/firebase";
+import FormComponentError from "../../Shared/FormComponentError/FormComponentError";
 import {
   checkIsUsernameUsed,
   registerUser,
-} from "../../../../services/authService";
+} from "../../../services/authService";
 
 import "./RegisterUserCredentialsForm.css";
 
