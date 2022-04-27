@@ -6,8 +6,12 @@ import Home from "./components/Home/Home";
 import Register from "./components/Register/RegisterUserCredentials/RegisterUserCredentials";
 import RegisterPaymentMethod from "./components/Register/RegisterPaymentMethod/RegisterPaymentMethod";
 import Login from "./components/Login/Login";
+import Movies from "./components/Movies/Movies";
+
 import AuthContext from "./contexts/AuthContext";
+
 import { auth } from "./utils/firebase";
+
 import isAuth from "./hoc/isAuth";
 
 function App() {
@@ -55,6 +59,11 @@ function App() {
             element={isAuth(RegisterPaymentMethod, false, "/")}
           />
           <Route path="/logout" element={isAuth(Logout)} />
+          <Route
+            exact
+            path="/movies"
+            element={isAuth(Movies)}
+          />
         </Routes>
       </AuthContext.Provider>
     </>

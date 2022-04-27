@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Navbar } from "react-bootstrap";
 
-import AuthLinks from "./AuthLinks/AuthLinks";
+import AuthLinks from "../AuthLinks/AuthLinks";
 
 import "./HeaderLinks.css";
 
