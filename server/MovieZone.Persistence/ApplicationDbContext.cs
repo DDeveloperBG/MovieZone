@@ -11,6 +11,7 @@
 
     using MovieZone.Data.Common.Models;
     using MovieZone.Data.Models;
+    using MovieZone.Domain.Entities;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -23,6 +24,10 @@
             : base(options)
         {
         }
+
+        public DbSet<Movie> Movies { get; set; }
+
+        public DbSet<MoviesCategory> MoviesCategories { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

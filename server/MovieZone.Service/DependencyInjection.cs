@@ -7,7 +7,9 @@
     using MovieZone.Data.Common;
     using MovieZone.Data.Common.Repositories;
     using MovieZone.Data.Repositories;
-    using MovieZone.Service.FirebaseIntegration;
+    using MovieZone.Service.Firebase;
+    using MovieZone.Service.Movie;
+    using MovieZone.Service.MoviesCategory;
     using MovieZone.Service.User;
 
     public static class DependencyInjection
@@ -26,6 +28,8 @@
             serviceCollection.AddTransient<IFirebaseService>(_ =>
                 new FirebaseService(configuration));
             serviceCollection.AddTransient<IUserService, UserService>();
+            serviceCollection.AddTransient<IMovieService, MovieService>();
+            serviceCollection.AddTransient<IMoviesCategoryService, MoviesCategoryService>();
         }
     }
 }

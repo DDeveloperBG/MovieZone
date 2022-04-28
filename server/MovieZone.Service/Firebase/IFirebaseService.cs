@@ -1,4 +1,4 @@
-﻿namespace MovieZone.Service.FirebaseIntegration
+﻿namespace MovieZone.Service.Firebase
 {
     using System.Threading.Tasks;
 

@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieZone.Persistence", "Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieZone.Persistence.Common", "MovieZone.Persistence.Common\MovieZone.Persistence.Common.csproj", "{647D994F-0F59-47C5-8535-9B4CED56EA2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieZone.Common", "MovieZone.Common\MovieZone.Common.csproj", "{AB47E827-A5DD-444C-A335-95084CAE6EA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieZone.Common", "MovieZone.Common\MovieZone.Common.csproj", "{AB47E827-A5DD-444C-A335-95084CAE6EA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
