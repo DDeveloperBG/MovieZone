@@ -1,9 +1,12 @@
 ﻿namespace MovieZone.Service.DTOs.Movie
 {
+    using AutoMapper;
+
+    using MovieZone.Common;
     using MovieZone.Domain.Entities;
     using MovieZone.Services.Mapping;
 
-    public class GetMoviesInCategoryMovieDTO : IMapFrom<Movie>
+    public class GetMoviesInCategoryMovieDTO : IMapFrom<Movie>, IHaveCustomMappings
     {
         public string Id { get; set; }
 
@@ -12,5 +15,18 @@
         public string Description { get; set; }
 
         public string ImgUrl { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration
+                .CreateMap<Movie, GetMoviesInCategoryMovieDTO>()
+                .ForMember(
+                    x => x.Description,
+                    y => y.MapFrom(x =>
+                        x.Description.Substring(
+                            0,
+                            GlobalConstants.CategoryMovies.MovieDescriptionMaxLength)
+                        + "..."));
+        }
     }
 }

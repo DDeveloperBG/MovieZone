@@ -17,7 +17,7 @@
         [HttpGet]
         public IActionResult GetMoviesInCategory([FromQuery] string categoryId, int page = 1)
         {
-            var responce = this.moviesService.GetMoviesInCategory(categoryId);
+            var responce = this.moviesService.GetMoviesInCategory(categoryId, page);
 
             return this.Ok(responce);
         }

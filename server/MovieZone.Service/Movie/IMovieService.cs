@@ -1,11 +1,10 @@
 ﻿namespace MovieZone.Service.Movie
 {
-    using System.Collections.Generic;
-
     using MovieZone.Service.DTOs.Movie;
+    using MovieZone.Service.DTOs.Pagination;
 
     public interface IMovieService
     {
-        public IEnumerable<GetMoviesInCategoryMovieDTO> GetMoviesInCategory(string categoryId);
+        public PaginationDTO<GetMoviesInCategoryMovieDTO> GetMoviesInCategory(string categoryId, int page);
     }
 }

@@ -1,6 +1,6 @@
 import Movie from "../Movie/Movie";
 
-function CategoryView({ name, movies }) {
+function CategoryMovies({ name, movies }) {
   return (
     <div className="category-wrapper ms-3 mt-3">
       <h3>{name}</h3>
@@ -19,4 +19,4 @@ function CategoryView({ name, movies }) {
   );
 }
 
-export default CategoryView;
+export default CategoryMovies;
