@@ -5,7 +5,7 @@
 
     using MovieZone.Data.Common.Repositories;
     using MovieZone.Data.Models;
-    using MovieZone.Service.FirebaseIntegration;
+    using MovieZone.Service.Firebase;
 
     public class UserService : IUserService
     {

@@ -24,8 +24,8 @@
             var logger = serviceProvider.GetService<ILoggerFactory>().CreateLogger(typeof(ApplicationDbContextSeeder));
 
             var seeders = new List<ISeeder>
-                          {
-                          };
+            {
+            };
 
             foreach (var seeder in seeders)
             {

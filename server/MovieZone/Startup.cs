@@ -18,9 +18,9 @@
 
     using MovieZone.Data;
     using MovieZone.Data.Seeding;
+    using MovieZone.DTOs;
     using MovieZone.Infrastructure.Extension;
     using MovieZone.Service;
-    using MovieZone.Service.DTOs;
     using MovieZone.Services.Mapping;
 
     using Serilog;

@@ -79,6 +79,10 @@ function RegisterUserCredentialsForm() {
     const username = e.target.value;
     if (username === "") {
       setUsernameError("Username is required.");
+
+      if (shouldThrowError) {
+        throw new Error();
+      }
     } else if (usernameError !== "Username is already used.") {
       setUsernameError("");
     }
@@ -128,6 +132,16 @@ function RegisterUserCredentialsForm() {
   return (
     <Form id="register-form" className="p-3" onSubmit={onSubmit}>
       <Form.Group>
+        <Form.Label>Email address</Form.Label>
+        <Form.Control
+          type="email"
+          name="email"
+          placeholder="Email"
+          onChange={emailOnChange}
+        ></Form.Control>
+        <FormComponentError message={emailError} />
+      </Form.Group>
+      <Form.Group className="mt-3">
         <Form.Label>Username</Form.Label>
         <Form.Control
           type="text"
@@ -138,16 +152,6 @@ function RegisterUserCredentialsForm() {
           autoComplete="false"
         ></Form.Control>
         <FormComponentError message={usernameError} />
-      </Form.Group>
-      <Form.Group className="mt-3">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control
-          type="email"
-          name="email"
-          placeholder="Email"
-          onChange={emailOnChange}
-        ></Form.Control>
-        <FormComponentError message={emailError} />
       </Form.Group>
       <Form.Group className="mt-3">
         <Form.Label>Password</Form.Label>

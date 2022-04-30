@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieZone.Data;
 
@@ -11,9 +12,10 @@ using MovieZone.Data;
 namespace MovieZone.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220428122904_AddedMovieAndMoviesCategoryEntities")]
+    partial class AddedMovieAndMoviesCategoryEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,21 +128,6 @@ namespace MovieZone.Persistence.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("MovieMoviesCategory", b =>
-                {
-                    b.Property<string>("MoviesCategoriesId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("MoviesId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("MoviesCategoriesId", "MoviesId");
-
-                    b.HasIndex("MoviesId");
-
-                    b.ToTable("MovieMoviesCategory");
                 });
 
             modelBuilder.Entity("MovieZone.Data.Models.ApplicationRole", b =>
@@ -288,12 +275,17 @@ namespace MovieZone.Persistence.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("MoviesCategoryId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("MoviesCategoryId");
 
                     b.ToTable("Movies");
                 });
@@ -376,24 +368,21 @@ namespace MovieZone.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MovieMoviesCategory", b =>
+            modelBuilder.Entity("MovieZone.Domain.Entities.Movie", b =>
                 {
                     b.HasOne("MovieZone.Domain.Entities.MoviesCategory", null)
-                        .WithMany()
-                        .HasForeignKey("MoviesCategoriesId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MovieZone.Domain.Entities.Movie", null)
-                        .WithMany()
-                        .HasForeignKey("MoviesId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .WithMany("Movies")
+                        .HasForeignKey("MoviesCategoryId");
                 });
 
             modelBuilder.Entity("MovieZone.Data.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Roles");
+                });
+
+            modelBuilder.Entity("MovieZone.Domain.Entities.MoviesCategory", b =>
+                {
+                    b.Navigation("Movies");
                 });
 #pragma warning restore 612, 618
         }

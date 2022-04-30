@@ -1,22 +1,25 @@
 ﻿namespace MovieZone.ApiControllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using MovieZone.Service.Movie;
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class MovieController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult GetMovieDetails(string id)
+        private readonly IMovieService moviesService;
+
+        public MovieController(IMovieService moviesService)
         {
-            return this.Ok(
-                new
-                {
-                    id = "aaasd2",
-                    name = "Qba daba",
-                    description = "Lorem impusm,",
-                    imgUrl = "https://occ-0-6536-2774.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABZQok2nqlc0GXzT3dtgJhAB_NusOu0PBYvnwD08DEHvpDUkrdnLCHgiljv33-fiolpwvzhARi_47vwHVHf76tGjYyRE.jpg?r=c82",
-                });
+            this.moviesService = moviesService;
+        }
+
+        [HttpGet]
+        public IActionResult GetMoviesInCategory([FromQuery] string categoryId, int page = 1)
+        {
+            var responce = this.moviesService.GetMoviesInCategory(categoryId, page);
+
+            return this.Ok(responce);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace MovieZone.Service.DTOs
+﻿namespace MovieZone.DTOs
 {
     public class RootDto
     {

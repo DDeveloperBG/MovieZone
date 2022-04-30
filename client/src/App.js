@@ -38,11 +38,6 @@ function App() {
     username: user?.displayName,
   };
 
-  const Logout = () => {
-    auth.signOut();
-    return <Navigate to="/" />;
-  };
-
   return (
     <>
       <AuthContext.Provider value={authInfo}>
@@ -58,12 +53,14 @@ function App() {
             path="/register/payment/method"
             element={isAuth(RegisterPaymentMethod, false, "/")}
           />
-          <Route path="/logout" element={isAuth(Logout)} />
           <Route
-            exact
-            path="/movies"
-            element={isAuth(Movies)}
+            path="/logout"
+            element={isAuth(() => {
+              auth.signOut();
+              return <Navigate to="/" />;
+            })}
           />
+          <Route exact path="/movies" element={isAuth(Movies)} />
         </Routes>
       </AuthContext.Provider>
     </>
