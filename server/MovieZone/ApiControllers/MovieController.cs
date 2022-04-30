@@ -1,6 +1,8 @@
 ﻿namespace MovieZone.ApiControllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
     using MovieZone.Service.Movie;
 
     [ApiController]
@@ -18,6 +20,15 @@
         public IActionResult GetMoviesInCategory([FromQuery] string categoryId, int page = 1)
         {
             var responce = this.moviesService.GetMoviesInCategory(categoryId, page);
+
+            return this.Ok(responce);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetMovieDetails([FromQuery] string movieId)
+        {
+            var responce = this.moviesService.GetMovieDetails(movieId);
 
             return this.Ok(responce);
         }

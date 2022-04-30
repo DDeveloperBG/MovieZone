@@ -25,6 +25,8 @@
         {
         }
 
+        public DbSet<Actor> Actors { get; set; }
+
         public DbSet<Movie> Movies { get; set; }
 
         public DbSet<MoviesCategory> MoviesCategories { get; set; }

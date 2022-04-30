@@ -11,7 +11,7 @@ function CategoryMovies({ name, movies }) {
             id={x.id}
             name={x.name}
             description={x.description}
-            imgUrl={x.imgUrl}
+            imgUrl={x.listingImgUrl}
           />
         ))}
       </div>

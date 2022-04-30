@@ -14,7 +14,7 @@
 
         public string Description { get; set; }
 
-        public string ImgUrl { get; set; }
+        public string ListingImgUrl { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {

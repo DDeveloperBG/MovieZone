@@ -15,7 +15,7 @@ function Movie({ id, name, description, imgUrl }) {
           <Card.Text>{description}</Card.Text>
           <Link to={`/movie/details/${id}`}>
             <Button variant="danger" className="rounded">
-              Watch
+              More
             </Button>
           </Link>
         </Card.Body>

@@ -7,6 +7,7 @@ import Register from "./components/Register/RegisterUserCredentials/RegisterUser
 import RegisterPaymentMethod from "./components/Register/RegisterPaymentMethod/RegisterPaymentMethod";
 import Login from "./components/Login/Login";
 import Movies from "./components/Movies/Movies";
+import MovieDescription from "./components/MovieDescription/MovieDescription";
 
 import AuthContext from "./contexts/AuthContext";
 
@@ -59,6 +60,12 @@ function App() {
               auth.signOut();
               return <Navigate to="/" />;
             })}
+          />
+          <Route exact path="/movies" element={<Movies />} />
+          <Route
+            exact
+            path="/movie/details/:id"
+            element={isAuth(MovieDescription)}
           />
           <Route exact path="/movies" element={isAuth(Movies)} />
         </Routes>

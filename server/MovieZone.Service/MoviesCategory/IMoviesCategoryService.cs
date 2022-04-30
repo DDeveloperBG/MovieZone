@@ -6,6 +6,6 @@
 
     public interface IMoviesCategoryService
     {
-        public IEnumerable<GetAllCategoriesMoviesCategoryDTO> GetAllCategories();
+        IEnumerable<GetAllCategoriesMoviesCategoryDTO> GetAllCategories();
     }
 }

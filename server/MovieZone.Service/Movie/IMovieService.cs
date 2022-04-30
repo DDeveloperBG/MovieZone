@@ -5,6 +5,8 @@
 
     public interface IMovieService
     {
-        public PaginationDTO<GetMoviesInCategoryMovieDTO> GetMoviesInCategory(string categoryId, int page);
+        PaginationDTO<GetMoviesInCategoryMovieDTO> GetMoviesInCategory(string categoryId, int page);
+
+        GetMovieDetailsDTO GetMovieDetails(string id);
     }
 }

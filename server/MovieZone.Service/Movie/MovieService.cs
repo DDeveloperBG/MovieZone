@@ -52,5 +52,15 @@
 
             return this.paginationService.GetPaged(moviesAsIQuerable, currentPage, PageSize);
         }
+
+        [HttpGet]
+        public GetMovieDetailsDTO GetMovieDetails(string id)
+        {
+            return this.movieRepository
+                .AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .To<GetMovieDetailsDTO>()
+                .SingleOrDefault();
+        }
     }
 }
