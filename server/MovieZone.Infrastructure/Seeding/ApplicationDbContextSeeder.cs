@@ -1,4 +1,4 @@
-﻿namespace MovieZone.Data.Seeding
+﻿namespace MovieZone.Infrastructure.Seeding
 {
     using System;
     using System.Collections.Generic;
@@ -6,6 +6,7 @@
 
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using MovieZone.Persistence;
 
     public class ApplicationDbContextSeeder : ISeeder
     {
@@ -25,6 +26,7 @@
 
             var seeders = new List<ISeeder>
             {
+                new AdminSeeder(),
             };
 
             foreach (var seeder in seeders)

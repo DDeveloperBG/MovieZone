@@ -4,7 +4,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using MovieZone.Data.Common.Models;
+    using MovieZone.Common;
+    using MovieZone.Persistence.Common.Models;
 
     public class Movie : BaseDeletableModel<string>
     {
@@ -17,11 +18,13 @@
         }
 
         [Required]
+        [MinLength(ValidationConstants.Movie.NameMinLength)]
+        [MaxLength(ValidationConstants.Movie.NameMaxLength)]
         public string Name { get; set; }
 
         [Required]
-        [MinLength(40)]
-        [MaxLength(250)]
+        [MinLength(ValidationConstants.Movie.DescriptionMinLength)]
+        [MaxLength(ValidationConstants.Movie.DescriptionMaxLength)]
         public string Description { get; set; }
 
         [Required]
@@ -30,9 +33,9 @@
         [Required]
         public string DetailsImgUrl { get; set; }
 
-        public int YearOfPublishing { get; set; }
+        public ushort YearOfPublishing { get; set; }
 
-        public int AgeRestriction { get; set; }
+        public byte AgeRestriction { get; set; }
 
         public TimeSpan Duration { get; set; }
 

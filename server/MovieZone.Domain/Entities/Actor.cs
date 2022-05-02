@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    using MovieZone.Data.Common.Models;
+    using MovieZone.Persistence.Common.Models;
 
     public class Actor : BaseModel<int>
     {

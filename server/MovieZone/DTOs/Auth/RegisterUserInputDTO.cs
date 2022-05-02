@@ -1,6 +1,6 @@
 ﻿namespace MovieZone.DTOs.Auth
 {
-    public class RegisterUserInput
+    public class RegisterUserInputDTO
     {
         public string IdToken { get; set; }
 

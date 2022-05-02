@@ -11,7 +11,9 @@ import useFetchToGet from "../../hooks/useFetchToGet";
 function Movies() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [categoryId, setCategoryId] = useState(searchParams.get("categoryId") ?? "default");
+  const [categoryId, setCategoryId] = useState(
+    searchParams.get("categoryId") ?? "default"
+  );
   const [page, setPage] = useState(Number(searchParams.get("page") ?? 1));
 
   const getSpinnerComponent = () => (
@@ -86,7 +88,7 @@ function Movies() {
   return (
     <div id="movies-wrapper" className="container">
       {categoriesDisplayComponent}
-
+      <br />
       {moviesDisplayComponent}
 
       <div className="ms-3 mt-2">

@@ -1,5 +1,7 @@
 ﻿namespace MovieZone.Service.Firebase
 {
+    using System.Collections.Generic;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using FirebaseAdmin;
@@ -10,8 +12,10 @@
     using Microsoft.Extensions.Configuration;
 
     using MovieZone.Service.DTOs.Firebase;
+    using MovieZone.Service.Firebase.NewtonsoftNamingStrategies;
 
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
 
     public class FirebaseService : IFirebaseService
     {
@@ -23,9 +27,13 @@
             }
 
             FirebaseConfigKeys fbconfig = new FirebaseConfigKeys();
-            configuration.Bind("Firebase", fbconfig);
+            configuration.Bind("FirebaseConfigKeys", fbconfig);
 
-            var json = JsonConvert.SerializeObject(fbconfig);
+            var settings = new JsonSerializerSettings
+            {
+                ContractResolver = new DefaultContractResolver { NamingStrategy = new ConfigKeysNamingStrategy() },
+            };
+            var json = JsonConvert.SerializeObject(fbconfig, settings);
             FirebaseApp.Create(new AppOptions()
             {
                 Credential = GoogleCredential.FromJson(json),
@@ -44,6 +52,55 @@
         public Task<UserRecord> GetUserAsync(string uid)
         {
             return FirebaseAuth.DefaultInstance.GetUserAsync(uid);
+        }
+
+        public async Task<string> RegisterUserAsync(string displayName, string email, string password)
+        {
+            var userCredentials = new UserRecordArgs
+            {
+                DisplayName = displayName,
+                Email = email,
+                Password = password,
+            };
+
+            var firebaseUser = await FirebaseAuth
+                .DefaultInstance
+                .CreateUserAsync(userCredentials);
+
+            return firebaseUser.Uid;
+        }
+
+        public Task AddUserToRoleAsync(string uid, string role)
+        {
+            var claims = new Dictionary<string, object>
+            {
+                { ClaimTypes.Role, role },
+            };
+
+            return FirebaseAuth
+                  .DefaultInstance
+                  .SetCustomUserClaimsAsync(uid, claims);
+        }
+
+        /// <summary>
+        /// Gets by email user email from firebase.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>If he exists, return uid. Else null.</returns>
+        public async Task<string> GetUidByEmailAsync(string email)
+        {
+            try
+            {
+                var user = await FirebaseAuth
+                    .DefaultInstance
+                    .GetUserByEmailAsync(email);
+
+                return user.Uid;
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿namespace MovieZone.Service.Movie
 {
+    using System.Threading.Tasks;
+
+    using MovieZone.Service.DTOs.AWS.Storage;
     using MovieZone.Service.DTOs.Movie;
     using MovieZone.Service.DTOs.Pagination;
 
@@ -8,5 +11,9 @@
         PaginationDTO<GetMoviesInCategoryMovieDTO> GetMoviesInCategory(string categoryId, int page);
 
         GetMovieDetailsDTO GetMovieDetails(string id);
+
+        Task AddMovieAsync(AddMovieInputDTO input);
+
+        Task<GetFileByKeyDTO> GetMovieFileAsync(string id);
     }
 }

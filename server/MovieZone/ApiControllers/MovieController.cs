@@ -1,8 +1,12 @@
 ﻿namespace MovieZone.ApiControllers
 {
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using MovieZone.Common;
+    using MovieZone.Service.DTOs.Movie;
     using MovieZone.Service.Movie;
 
     [ApiController]
@@ -31,6 +35,24 @@
             var responce = this.moviesService.GetMovieDetails(movieId);
 
             return this.Ok(responce);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetMovieFile(string movieId)
+        {
+            var responce = await this.moviesService.GetMovieFileAsync(movieId);
+
+            return this.File(responce.FileStream, responce.FileType);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = GlobalConstants.AppRoles.AdminRoleName)]
+        public async Task<IActionResult> AddMovie([FromForm] AddMovieInputDTO input)
+        {
+            await this.moviesService.AddMovieAsync(input);
+
+            return this.Ok();
         }
     }
 }

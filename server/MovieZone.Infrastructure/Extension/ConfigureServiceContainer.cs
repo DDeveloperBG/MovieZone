@@ -13,7 +13,7 @@
     using Microsoft.OpenApi.Models;
 
     using MovieZone.Common;
-    using MovieZone.Data;
+    using MovieZone.Persistence;
 
     public static class ConfigureServiceContainer
     {

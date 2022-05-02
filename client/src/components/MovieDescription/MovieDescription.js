@@ -22,14 +22,14 @@ function MovieDescription() {
 
   return (
     <div id="movie-description-wrapper">
-      <MoviePoster {...movieDetails} />
+      <MoviePoster id={id} {...movieDetails} />
       <div className="container mt-5">
-        <h3>More Details</h3>
+        <h3 id="more-details-title">More Details</h3>
         <div>
           <h4>Cast</h4>
           <div className="row">
             {movieDetails.actorsNames.map((x) => (
-              <span key={x} className="col-lg-2 col-md-3 col-sm-4">
+              <span key={x} className="col-lg-2 col-md-3 col-sm-4 text-nowrap">
                 {x}
               </span>
             ))}

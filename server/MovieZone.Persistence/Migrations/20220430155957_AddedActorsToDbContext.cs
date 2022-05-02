@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-#nullable disable
+﻿#nullable disable
 
 namespace MovieZone.Persistence.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddedActorsToDbContext : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

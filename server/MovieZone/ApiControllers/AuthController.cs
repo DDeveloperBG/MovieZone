@@ -28,7 +28,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterUserAsync([FromBody] RegisterUserInput input)
+        public async Task<IActionResult> RegisterUserAsync([FromBody] RegisterUserInputDTO input)
         {
             await this.userService.RegisterAsync(input.IdToken, input.Username);
 

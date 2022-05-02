@@ -16,10 +16,10 @@
     using Microsoft.Extensions.Logging;
     using Microsoft.FeatureManagement;
 
-    using MovieZone.Data;
-    using MovieZone.Data.Seeding;
     using MovieZone.DTOs;
     using MovieZone.Infrastructure.Extension;
+    using MovieZone.Infrastructure.Seeding;
+    using MovieZone.Persistence;
     using MovieZone.Service;
     using MovieZone.Services.Mapping;
 

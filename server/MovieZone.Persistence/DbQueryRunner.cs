@@ -1,11 +1,11 @@
-﻿namespace MovieZone.Data
+﻿namespace MovieZone.Persistence
 {
     using System;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
 
-    using MovieZone.Data.Common;
+    using MovieZone.Persistence.Common;
 
     public class DbQueryRunner : IDbQueryRunner
     {

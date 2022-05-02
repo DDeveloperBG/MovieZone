@@ -1,4 +1,4 @@
-﻿namespace MovieZone.Data
+﻿namespace MovieZone.Persistence
 {
     using System;
     using System.Linq;
@@ -8,10 +8,9 @@
 
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-
-    using MovieZone.Data.Common.Models;
-    using MovieZone.Data.Models;
     using MovieZone.Domain.Entities;
+    using MovieZone.Persistence.Common.Models;
+    using MovieZone.Persistence.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {

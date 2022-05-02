@@ -1,10 +1,10 @@
-﻿namespace MovieZone.Data.Models
+﻿namespace MovieZone.Persistence.Models
 {
     using System;
     using System.Collections.Generic;
 
     using Microsoft.AspNetCore.Identity;
-    using MovieZone.Data.Common.Models;
+    using MovieZone.Persistence.Common.Models;
 
     public class ApplicationUser : IdentityUser, IAuditInfo
     {

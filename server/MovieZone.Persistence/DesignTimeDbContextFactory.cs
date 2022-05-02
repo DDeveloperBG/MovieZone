@@ -1,4 +1,4 @@
-﻿namespace MovieZone.Data
+﻿namespace MovieZone.Persistence
 {
     using System.IO;
 

@@ -8,6 +8,7 @@ import RegisterPaymentMethod from "./components/Register/RegisterPaymentMethod/R
 import Login from "./components/Login/Login";
 import Movies from "./components/Movies/Movies";
 import MovieDescription from "./components/MovieDescription/MovieDescription";
+import MoviePlayer from "./components/MoviePlayer/MoviePlayer";
 
 import AuthContext from "./contexts/AuthContext";
 
@@ -67,7 +68,7 @@ function App() {
             path="/movie/details/:id"
             element={isAuth(MovieDescription)}
           />
-          <Route exact path="/movies" element={isAuth(Movies)} />
+          <Route exact path="/movie/watch/:id" element={isAuth(MoviePlayer)} />
         </Routes>
       </AuthContext.Provider>
     </>

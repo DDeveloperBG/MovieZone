@@ -21,6 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\MovieZone.Common\MovieZone.Common.csproj" />
 	  <ProjectReference Include="..\MovieZone.Persistence.Common\MovieZone.Persistence.Common.csproj" />
 	</ItemGroup>
 

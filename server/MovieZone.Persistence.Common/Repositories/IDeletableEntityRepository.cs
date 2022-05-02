@@ -1,8 +1,8 @@
-﻿namespace MovieZone.Data.Common.Repositories
+﻿namespace MovieZone.Persistence.Common.Repositories
 {
     using System.Linq;
 
-    using MovieZone.Data.Common.Models;
+    using MovieZone.Persistence.Common.Models;
 
     public interface IDeletableEntityRepository<TEntity> : IRepository<TEntity>
         where TEntity : class, IDeletableEntity

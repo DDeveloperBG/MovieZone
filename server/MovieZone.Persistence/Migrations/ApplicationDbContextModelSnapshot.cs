@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MovieZone.Data;
+using MovieZone.Persistence;
 
 #nullable disable
 
@@ -158,7 +158,7 @@ namespace MovieZone.Persistence.Migrations
                     b.ToTable("MovieMoviesCategory");
                 });
 
-            modelBuilder.Entity("MovieZone.Data.Models.ApplicationRole", b =>
+            modelBuilder.Entity("MovieZone.Persistence.Models.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -199,7 +199,7 @@ namespace MovieZone.Persistence.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("MovieZone.Data.Models.ApplicationUser", b =>
+            modelBuilder.Entity("MovieZone.Persistence.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -396,7 +396,7 @@ namespace MovieZone.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("MovieZone.Data.Models.ApplicationRole", null)
+                    b.HasOne("MovieZone.Persistence.Models.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -405,7 +405,7 @@ namespace MovieZone.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("MovieZone.Data.Models.ApplicationUser", null)
+                    b.HasOne("MovieZone.Persistence.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -414,7 +414,7 @@ namespace MovieZone.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("MovieZone.Data.Models.ApplicationUser", null)
+                    b.HasOne("MovieZone.Persistence.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -423,13 +423,13 @@ namespace MovieZone.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("MovieZone.Data.Models.ApplicationRole", null)
+                    b.HasOne("MovieZone.Persistence.Models.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("MovieZone.Data.Models.ApplicationUser", null)
+                    b.HasOne("MovieZone.Persistence.Models.ApplicationUser", null)
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -438,7 +438,7 @@ namespace MovieZone.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("MovieZone.Data.Models.ApplicationUser", null)
+                    b.HasOne("MovieZone.Persistence.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -460,7 +460,7 @@ namespace MovieZone.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MovieZone.Data.Models.ApplicationUser", b =>
+            modelBuilder.Entity("MovieZone.Persistence.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Roles");
                 });

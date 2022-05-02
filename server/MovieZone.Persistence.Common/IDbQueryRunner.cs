@@ -1,4 +1,4 @@
-﻿namespace MovieZone.Data.Common
+﻿namespace MovieZone.Persistence.Common
 {
     using System;
     using System.Threading.Tasks;
