@@ -1,23 +1,22 @@
-import { useParams } from "react-router-dom";
-import { Spinner } from "react-bootstrap";
+import { useSearchParams } from "react-router-dom";
 
 import useFetchToGet from "../../hooks/useFetchToGet";
 
 import MoviePoster from "./MoviePoster/MoviePoster";
+import Spinner from "../Shared/Spinner/Spinner";
 
 import "./MovieDescription.scss";
 
 function MovieDescription() {
-  const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
   const [movieDetails, isLoading] = useFetchToGet(
     `${process.env.REACT_APP_MOVIE_API_GET_MOVIE_DETAILS_URL}?movieId=${id}`,
     true
   );
 
   if (isLoading) {
-    return <Spinner animation="border" className="ms-3 mt-5" />;
-  } else {
-    console.log(movieDetails);
+    return <Spinner />;
   }
 
   return (

@@ -16,9 +16,9 @@
 
         public string DetailsImgUrl { get; set; }
 
-        public int YearOfPublishing { get; set; }
+        public ushort YearOfPublishing { get; set; }
 
-        public int AgeRestriction { get; set; }
+        public byte AgeRestriction { get; set; }
 
         public int HoursDuration { get; set; }
 

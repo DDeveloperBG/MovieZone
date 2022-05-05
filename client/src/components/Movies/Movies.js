@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Spinner } from "react-bootstrap";
 
 import CategoryMovies from "./CategoryMovies/CategoryMovies";
 import CategoriesDropdown from "./CategoriesDropdown/CategoriesDropdown";
 import CustomPagination from "../Shared/CustomPagination/CustomPagination";
+import Spinner from "../Shared/Spinner/Spinner";
 
 import useFetchToGet from "../../hooks/useFetchToGet";
 
@@ -15,10 +15,6 @@ function Movies() {
     searchParams.get("categoryId") ?? "default"
   );
   const [page, setPage] = useState(Number(searchParams.get("page") ?? 1));
-
-  const getSpinnerComponent = () => (
-    <Spinner animation="border" className="ms-3 mt-5" />
-  );
 
   const onCategorySelect = (_, event) => {
     event.persist();
@@ -59,7 +55,7 @@ function Movies() {
 
   let categoriesDisplayComponent = undefined;
   if (isLoadingCategories) {
-    categoriesDisplayComponent = getSpinnerComponent();
+    categoriesDisplayComponent = <Spinner />;
   } else {
     categoriesDisplayComponent = (
       <CategoriesDropdown
@@ -78,7 +74,7 @@ function Movies() {
 
   let moviesDisplayComponent = undefined;
   if (isLoadingMovies) {
-    moviesDisplayComponent = getSpinnerComponent();
+    moviesDisplayComponent = <Spinner />;
   } else {
     moviesDisplayComponent = (
       <CategoryMovies name={currentCategoryName} movies={movies} />

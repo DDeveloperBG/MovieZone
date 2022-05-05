@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Movie({ id, name, description, imgUrl }) {
   return (
-    <div className="col-lg-3 col-md-5 pb-3 pe-2">
+    <div className="col-lg-4 col-md-6 pb-3 pe-2">
       <Card className="movie-wrapper">
         <Card.Img
           variant="top"
@@ -13,7 +13,7 @@ function Movie({ id, name, description, imgUrl }) {
         <Card.Body>
           <Card.Title>{name}</Card.Title>
           <Card.Text>{description}</Card.Text>
-          <Link to={`/movie/details/${id}`}>
+          <Link to={`/movie/details/${name.replace(" ", "")}?id=${id}`}>
             <Button variant="danger" className="rounded">
               More
             </Button>

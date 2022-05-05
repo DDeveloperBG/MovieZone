@@ -39,7 +39,7 @@
 
         public TimeSpan Duration { get; set; }
 
-        public ICollection<MoviesCategory> MoviesCategories { get; set; }
+        public ICollection<MoviesCategory> MovieCategories { get; set; }
 
         public ICollection<Actor> Actors { get; set; }
     }

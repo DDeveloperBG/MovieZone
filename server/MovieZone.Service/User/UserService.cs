@@ -76,5 +76,15 @@
             await this.userRepository.AddAsync(user);
             await this.userRepository.SaveChangesAsync();
         }
+
+        public async Task<bool> ValidateIsUserAuthorizedAsync(string userIdToken)
+        {
+            string uid = await this.firebaseService.GetUserIdWithIdTokenAsync(userIdToken);
+
+            return this.userRepository
+                .AllAsNoTracking()
+                .Where(x => x.Id == uid)
+                .Any();
+        }
     }
 }

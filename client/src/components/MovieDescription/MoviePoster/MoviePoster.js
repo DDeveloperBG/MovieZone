@@ -41,7 +41,7 @@ function MoviePoster({
             {actorsNames.slice(0, 3).join(", ")}
           </span>
         </p>
-        <Link to={`/movie/watch/${id}`}>
+        <Link to={`/movie/watch/${name.replace(" ", "")}?id=${id}`}>
           <Button variant="danger" className="mt-3">
             Watch
           </Button>

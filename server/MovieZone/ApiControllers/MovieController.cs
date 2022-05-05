@@ -37,15 +37,6 @@
             return this.Ok(responce);
         }
 
-        [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> GetMovieFile(string movieId)
-        {
-            var responce = await this.moviesService.GetMovieFileAsync(movieId);
-
-            return this.File(responce.FileStream, responce.FileType);
-        }
-
         [HttpPost]
         [Authorize(Roles = GlobalConstants.AppRoles.AdminRoleName)]
         public async Task<IActionResult> AddMovie([FromForm] AddMovieInputDTO input)

@@ -8,13 +8,16 @@ import RegisterPaymentMethod from "./components/Register/RegisterPaymentMethod/R
 import Login from "./components/Login/Login";
 import Movies from "./components/Movies/Movies";
 import MovieDescription from "./components/MovieDescription/MovieDescription";
-import MoviePlayer from "./components/MoviePlayer/MoviePlayer";
+import WatchMovie from "./components/WatchMovie/WatchMovie";
+import AdminDashboard from "./components/Admin/AdminDashboard/AdminDashboard";
+import AddMovie from "./components/Admin/AddMovie/AddMovie";
 
 import AuthContext from "./contexts/AuthContext";
 
 import { auth } from "./utils/firebase";
 
 import isAuth from "./hoc/isAuth";
+import isAdmin from "./hoc/isAdmin";
 
 function App() {
   const [initializing, setInitializing] = useState(true);
@@ -63,12 +66,10 @@ function App() {
             })}
           />
           <Route exact path="/movies" element={<Movies />} />
-          <Route
-            exact
-            path="/movie/details/:id"
-            element={isAuth(MovieDescription)}
-          />
-          <Route exact path="/movie/watch/:id" element={isAuth(MoviePlayer)} />
+          <Route path="/movie/details/:id" element={isAuth(MovieDescription)} />
+          <Route exact path="/movie/watch/:name" element={isAuth(WatchMovie)} />
+          <Route path="/admin/dashboard" element={isAdmin(AdminDashboard)} />
+          <Route path="/admin/addMovie" element={isAdmin(AddMovie)} />
         </Routes>
       </AuthContext.Provider>
     </>

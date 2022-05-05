@@ -11,7 +11,6 @@
     using MovieZone.Persistence.Common.Repositories;
     using MovieZone.Service.Actor;
     using MovieZone.Service.AWS.Storage.MovieStorage;
-    using MovieZone.Service.DTOs.AWS.Storage;
     using MovieZone.Service.DTOs.Movie;
     using MovieZone.Service.DTOs.Pagination;
     using MovieZone.Service.MoviesCategory;
@@ -77,11 +76,6 @@
                 .Where(x => x.Id == id)
                 .To<GetMovieDetailsDTO>()
                 .SingleOrDefault();
-        }
-
-        public Task<GetFileByKeyDTO> GetMovieFileAsync(string id)
-        {
-            return this.movieStorageService.GetFileByKeyAsync(id);
         }
 
         public async Task AddMovieAsync(AddMovieInputDTO input)
