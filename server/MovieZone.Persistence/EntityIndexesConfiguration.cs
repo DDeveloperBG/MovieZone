@@ -1,10 +1,10 @@
-﻿namespace MovieZone.Data
+﻿namespace MovieZone.Persistence
 {
     using System.Linq;
 
     using Microsoft.EntityFrameworkCore;
 
-    using MovieZone.Data.Common.Models;
+    using MovieZone.Persistence.Common.Models;
 
     internal static class EntityIndexesConfiguration
     {

@@ -1,4 +1,4 @@
-﻿namespace MovieZone.Data.Common.Models
+﻿namespace MovieZone.Persistence.Common.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;

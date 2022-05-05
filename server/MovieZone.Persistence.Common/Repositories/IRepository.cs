@@ -1,4 +1,4 @@
-﻿namespace MovieZone.Data.Common.Repositories
+﻿namespace MovieZone.Persistence.Common.Repositories
 {
     using System;
     using System.Linq;

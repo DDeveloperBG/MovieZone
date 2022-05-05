@@ -1,7 +1,9 @@
-﻿namespace MovieZone.Data.Seeding
+﻿namespace MovieZone.Infrastructure.Seeding
 {
     using System;
     using System.Threading.Tasks;
+
+    using MovieZone.Persistence;
 
     public interface ISeeder
     {

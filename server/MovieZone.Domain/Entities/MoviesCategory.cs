@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    using MovieZone.Data.Common.Models;
+    using MovieZone.Persistence.Common.Models;
 
     public class MoviesCategory : BaseDeletableModel<string>
     {

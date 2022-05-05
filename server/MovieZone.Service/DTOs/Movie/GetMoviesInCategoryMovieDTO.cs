@@ -2,7 +2,6 @@
 {
     using AutoMapper;
 
-    using MovieZone.Common;
     using MovieZone.Domain.Entities;
     using MovieZone.Services.Mapping;
 
@@ -14,7 +13,7 @@
 
         public string Description { get; set; }
 
-        public string ImgUrl { get; set; }
+        public string ListingImgUrl { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
@@ -22,11 +21,7 @@
                 .CreateMap<Movie, GetMoviesInCategoryMovieDTO>()
                 .ForMember(
                     x => x.Description,
-                    y => y.MapFrom(x =>
-                        x.Description.Substring(
-                            0,
-                            GlobalConstants.CategoryMovies.MovieDescriptionMaxLength)
-                        + "..."));
+                    y => y.MapFrom(x => x.Description.Substring(0, 65) + "..."));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace MovieZone.Data.Repositories
+﻿namespace MovieZone.Persistence.Repositories
 {
     using System;
     using System.Linq;
@@ -6,7 +6,7 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    using MovieZone.Data.Common.Repositories;
+    using MovieZone.Persistence.Common.Repositories;
 
     public class EfRepository<TEntity> : IRepository<TEntity>
         where TEntity : class

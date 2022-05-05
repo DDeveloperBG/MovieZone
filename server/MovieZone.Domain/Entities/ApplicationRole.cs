@@ -1,9 +1,9 @@
-﻿namespace MovieZone.Data.Models
+﻿namespace MovieZone.Persistence.Models
 {
     using System;
 
     using Microsoft.AspNetCore.Identity;
-    using MovieZone.Data.Common.Models;
+    using MovieZone.Persistence.Common.Models;
 
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
     {

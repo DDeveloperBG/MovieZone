@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using MovieZone.Data.Common.Repositories;
     using MovieZone.Domain.Entities;
+    using MovieZone.Persistence.Common.Repositories;
     using MovieZone.Service.DTOs.MoviesCategory;
     using MovieZone.Services.Mapping;
 
@@ -23,6 +23,14 @@
                 .AllAsNoTracking()
                 .To<GetAllCategoriesMoviesCategoryDTO>()
                 .ToList();
+        }
+
+        public MoviesCategory GetByName(string categoryName)
+        {
+            return this.moviesCategoryRepository
+                .AllAsNoTracking()
+                .Where(x => x.Name == categoryName)
+                .FirstOrDefault();
         }
     }
 }

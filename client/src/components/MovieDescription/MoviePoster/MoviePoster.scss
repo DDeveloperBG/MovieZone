@@ -1,0 +1,50 @@
+#movie-poster-wrapper {
+  #background-img {
+    position: absolute;
+    width: 97%;
+    height: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    z-index: -1;
+  }
+
+  #description-text-wrapper {
+    background: linear-gradient(
+      to right,
+      #181818 10%,
+      rgba(23, 23, 23, 0.98) 20%,
+      rgba(23, 23, 23, 0.97) 25%,
+      rgba(23, 23, 23, 0.95) 35%,
+      rgba(23, 23, 23, 0.94) 40%,
+      rgba(23, 23, 23, 0.92) 45%,
+      rgba(23, 23, 23, 0.9) 50%,
+      rgba(23, 23, 23, 0.87) 55%,
+      rgba(23, 23, 23, 0.82) 60%,
+      rgba(23, 23, 23, 0.75) 65%,
+      rgba(23, 23, 23, 0.63) 70%,
+      rgba(23, 23, 23, 0.45) 75%,
+      rgba(23, 23, 23, 0.27) 80%,
+      rgba(23, 23, 23, 0.15) 85%,
+      rgba(23, 23, 23, 0.08) 90%,
+      rgba(23, 23, 23, 0.03) 95%,
+      rgba(23, 23, 23, 0) 100%
+    );
+  }
+
+  .font-white {
+    color: white;
+  }
+
+  .font-gray {
+    color: #b3b2b2;
+  }
+
+  #age-restriction-text {
+    border: 1px solid #b1afaf;
+    padding: 0 4px;
+    border-radius: 3px;
+  }
+}

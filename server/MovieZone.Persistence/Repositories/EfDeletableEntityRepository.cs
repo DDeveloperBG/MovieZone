@@ -1,12 +1,12 @@
-﻿namespace MovieZone.Data.Repositories
+﻿namespace MovieZone.Persistence.Repositories
 {
     using System;
     using System.Linq;
 
     using Microsoft.EntityFrameworkCore;
 
-    using MovieZone.Data.Common.Models;
-    using MovieZone.Data.Common.Repositories;
+    using MovieZone.Persistence.Common.Models;
+    using MovieZone.Persistence.Common.Repositories;
 
     public class EfDeletableEntityRepository<TEntity> : EfRepository<TEntity>, IDeletableEntityRepository<TEntity>
         where TEntity : class, IDeletableEntity

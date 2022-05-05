@@ -2,10 +2,13 @@
 {
     using System.Collections.Generic;
 
+    using MovieZone.Domain.Entities;
     using MovieZone.Service.DTOs.MoviesCategory;
 
     public interface IMoviesCategoryService
     {
-        public IEnumerable<GetAllCategoriesMoviesCategoryDTO> GetAllCategories();
+        IEnumerable<GetAllCategoriesMoviesCategoryDTO> GetAllCategories();
+
+        MoviesCategory GetByName(string categoryName);
     }
 }

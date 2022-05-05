@@ -1,9 +1,9 @@
-﻿namespace MovieZone.Data.Configurations
+﻿namespace MovieZone.Persistence.Configurations
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    using MovieZone.Data.Models;
+    using MovieZone.Persistence.Models;
 
     public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {

@@ -3,8 +3,9 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using MovieZone.Data.Common.Repositories;
-    using MovieZone.Data.Models;
+    using MovieZone.Common;
+    using MovieZone.Persistence.Common.Repositories;
+    using MovieZone.Persistence.Models;
     using MovieZone.Service.Firebase;
 
     public class UserService : IUserService
@@ -46,6 +47,44 @@
 
             await this.userRepository.AddAsync(user);
             await this.userRepository.SaveChangesAsync();
+        }
+
+        public async Task SeedAdminAsync(string displayName, string email, string password)
+        {
+            bool adminExistsInDB = this.userRepository.AllAsNoTracking().Where(x => x.Email == email).Any();
+            if (adminExistsInDB)
+            {
+                return;
+            }
+
+            string uid = await this.firebaseService.GetUidByEmailAsync(email);
+            bool userNotExistsInFirebase = uid == null;
+            if (userNotExistsInFirebase)
+            {
+                uid = await this.firebaseService.RegisterUserAsync(displayName, email, password);
+
+                var adminRoleName = GlobalConstants.AppRoles.AdminRoleName;
+                await this.firebaseService.AddUserToRoleAsync(uid, adminRoleName);
+            }
+
+            var user = new ApplicationUser(uid)
+            {
+                Email = email,
+                UserName = displayName,
+            };
+
+            await this.userRepository.AddAsync(user);
+            await this.userRepository.SaveChangesAsync();
+        }
+
+        public async Task<bool> ValidateIsUserAuthorizedAsync(string userIdToken)
+        {
+            string uid = await this.firebaseService.GetUserIdWithIdTokenAsync(userIdToken);
+
+            return this.userRepository
+                .AllAsNoTracking()
+                .Where(x => x.Id == uid)
+                .Any();
         }
     }
 }
