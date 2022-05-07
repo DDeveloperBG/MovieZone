@@ -6,13 +6,13 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+
     using MovieZone.Domain.Entities;
     using MovieZone.Persistence.Common.Models;
     using MovieZone.Persistence.Models;
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
+    public class ApplicationDbContext : DbContext
     {
         private static readonly MethodInfo SetIsDeletedQueryFilterMethod =
             typeof(ApplicationDbContext).GetMethod(
@@ -23,6 +23,8 @@
             : base(options)
         {
         }
+
+        public DbSet<ApplicationUser> Users { get; set; }
 
         public DbSet<Actor> Actors { get; set; }
 

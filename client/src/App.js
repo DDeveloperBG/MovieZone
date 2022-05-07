@@ -17,15 +17,25 @@ import AuthContext from "./contexts/AuthContext";
 import { auth } from "./utils/firebase";
 
 import isAuth from "./hoc/isAuth";
-import isAdmin from "./hoc/isAdmin";
+import isAdminHoc from "./hoc/isAdmin";
+
+const roleClaim =
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
 
 function App() {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState(auth.currentUser);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const onAuthStateChanged = (user) => {
     setUser(user);
     if (initializing) setInitializing(false);
+
+    if (user) {
+      auth.currentUser.getIdTokenResult().then((idTokenResult) => {
+        setIsAdmin(idTokenResult.claims[roleClaim] === "Admin");
+      });
+    }
   };
 
   const onMount = () => {
@@ -41,6 +51,7 @@ function App() {
     isAuthenticated: Boolean(user),
     email: user?.email,
     username: user?.displayName,
+    isAdmin: isAdmin,
   };
 
   return (
@@ -68,8 +79,8 @@ function App() {
           <Route exact path="/movies" element={<Movies />} />
           <Route path="/movie/details/:id" element={isAuth(MovieDescription)} />
           <Route exact path="/movie/watch/:name" element={isAuth(WatchMovie)} />
-          <Route path="/admin/dashboard" element={isAdmin(AdminDashboard)} />
-          <Route path="/admin/addMovie" element={isAdmin(AddMovie)} />
+          <Route path="/admin/dashboard" element={isAdminHoc(AdminDashboard)} />
+          <Route path="/admin/addMovie" element={isAdminHoc(AddMovie)} />
         </Routes>
       </AuthContext.Provider>
     </>

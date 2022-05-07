@@ -1,14 +1,28 @@
-import { Link } from "react-router-dom";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
+
 import AuthContext from "../../../contexts/AuthContext";
 
 function AuthLinks() {
-  const { isAuthenticated, username } = useContext(AuthContext);
+  const { isAuthenticated, isAdmin, username } = useContext(AuthContext);
+
+  let adminDashboardLink;
+  if (isAdmin) {
+    adminDashboardLink = (
+      <Link to="/admin/dashboard" className="mt-auto mb-auto me-3">
+        <Button className="btn-sm" variant="secondary">
+          Admin Dashboard
+        </Button>
+      </Link>
+    );
+  }
 
   let links;
   if (isAuthenticated) {
     links = (
       <>
+        {adminDashboardLink}
         <p className="mt-auto mb-auto">Welcome, {username}!</p>
         <Link
           id="logout-btn"
