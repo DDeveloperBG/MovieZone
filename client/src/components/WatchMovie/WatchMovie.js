@@ -4,7 +4,7 @@ import { Player, Video, DefaultUi, DefaultControls } from "@vime/react";
 
 import Spinner from "../Shared/Spinner/Spinner";
 
-import { getMovieFileUrl } from "../../services/movieService";
+import * as movieService from "../../services/movieService";
 
 import "@vime/core/themes/default.css";
 
@@ -14,7 +14,7 @@ function MoviePlayer() {
   const id = searchParams.get("id");
   useEffect(() => {
     (async () => {
-      const movieUrl = await getMovieFileUrl(id);
+      const movieUrl = await movieService.getMovieFileUrl(id);
       setMovieFileUrl(movieUrl);
     })();
   }, [id]);

@@ -1,7 +1,7 @@
 ﻿namespace MovieZone.Service.DTOs.MoviesCategory
 {
     using MovieZone.Domain.Entities;
-    using MovieZone.Services.Mapping;
+    using MovieZone.Service.Mapping;
 
     public class GetAllCategoriesMoviesCategoryDTO : IMapFrom<MoviesCategory>
     {

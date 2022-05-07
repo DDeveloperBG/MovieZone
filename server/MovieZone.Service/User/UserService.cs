@@ -63,7 +63,7 @@
             {
                 uid = await this.firebaseService.RegisterUserAsync(displayName, email, password);
 
-                var adminRoleName = GlobalConstants.AppRoles.AdminRoleName;
+                var adminRoleName = Globals.AppRoles.AdminRoleName;
                 await this.firebaseService.AddUserToRoleAsync(uid, adminRoleName);
             }
 

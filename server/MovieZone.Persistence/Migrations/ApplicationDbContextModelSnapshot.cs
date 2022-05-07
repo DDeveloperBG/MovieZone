@@ -145,13 +145,13 @@ namespace MovieZone.Persistence.Migrations
 
             modelBuilder.Entity("MovieMoviesCategory", b =>
                 {
-                    b.Property<string>("MoviesCategoriesId")
+                    b.Property<string>("MovieCategoriesId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("MoviesId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("MoviesCategoriesId", "MoviesId");
+                    b.HasKey("MovieCategoriesId", "MoviesId");
 
                     b.HasIndex("MoviesId");
 
@@ -199,7 +199,7 @@ namespace MovieZone.Persistence.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<string>("DetailsImgUrl")
+                    b.Property<string>("DetailsImgName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -209,7 +209,7 @@ namespace MovieZone.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ListingImgUrl")
+                    b.Property<string>("ListingImgName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -450,7 +450,7 @@ namespace MovieZone.Persistence.Migrations
                 {
                     b.HasOne("MovieZone.Domain.Entities.MoviesCategory", null)
                         .WithMany()
-                        .HasForeignKey("MoviesCategoriesId")
+                        .HasForeignKey("MovieCategoriesId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

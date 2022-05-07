@@ -9,17 +9,10 @@
     margin-top: 1.1rem;
   }
 
-  .without-am-pm::-webkit-datetime-edit-ampm-field {
-    display: none;
-  }
-
-  input[type="time"].without-am-pm::-webkit-clear-button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -o-appearance: none;
-    -ms-appearance: none;
-    appearance: none;
-    margin: -10px;
+  .react-tag-input {
+    border: 1px solid #7a839e;
+    border-radius: 0.25rem;
+    box-shadow: inset 0 1px 2px rgb(0 0 0 / 8%);
   }
 
   .react-tag-input__tag {

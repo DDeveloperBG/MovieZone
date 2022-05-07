@@ -6,7 +6,7 @@
     using AutoMapper;
 
     using MovieZone.Domain.Entities;
-    using MovieZone.Services.Mapping;
+    using MovieZone.Service.Mapping;
 
     public class GetMovieDetailsDTO : IMapFrom<Movie>, IHaveCustomMappings
     {

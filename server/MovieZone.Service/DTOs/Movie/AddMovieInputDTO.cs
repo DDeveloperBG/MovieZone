@@ -7,7 +7,7 @@
 
     using MovieZone.Common;
     using MovieZone.Domain.Entities;
-    using MovieZone.Services.Mapping;
+    using MovieZone.Service.Mapping;
 
     public class AddMovieInputDTO : IMapTo<Movie>
     {
@@ -25,19 +25,22 @@
         public string Description { get; set; }
 
         [Required]
-        public string ListingImgUrl { get; set; }
+        public IFormFile ListingImg { get; set; }
 
         [Required]
-        public string DetailsImgUrl { get; set; }
+        public IFormFile DetailsImg { get; set; }
 
         [Required]
         public ushort YearOfPublishing { get; set; }
 
         [Required]
+        [Range(
+            ValidationConstants.Movie.AgeRestrictionMinValue,
+            ValidationConstants.Movie.AgeRestrictionMaxValue)]
         public byte AgeRestriction { get; set; }
 
         [Required]
-        [Range(0, 15)]
+        [Range(0, 12)]
         public byte HoursDuration { get; set; } = 0;
 
         [Required]

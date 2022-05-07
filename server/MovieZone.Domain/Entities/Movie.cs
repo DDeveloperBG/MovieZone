@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     using MovieZone.Common;
     using MovieZone.Persistence.Common.Models;
@@ -13,7 +14,7 @@
         {
             this.Id = Guid.NewGuid().ToString();
 
-            this.MoviesCategories = new HashSet<MoviesCategory>();
+            this.MovieCategories = new HashSet<MoviesCategory>();
             this.Actors = new HashSet<Actor>();
         }
 
@@ -28,13 +29,24 @@
         public string Description { get; set; }
 
         [Required]
-        public string ListingImgUrl { get; set; }
+        public string ListingImgName { get; set; }
+
+        [NotMapped]
+        public string ListingImgUrl
+            => $"{Globals.AppSettings.ApplicationUrl}api/file/getPublicImage?imageName={this.ListingImgName}";
 
         [Required]
-        public string DetailsImgUrl { get; set; }
+        public string DetailsImgName { get; set; }
+
+        [NotMapped]
+        public string DetailsImgUrl
+            => $"{Globals.AppSettings.ApplicationUrl}api/file/getPublicImage?imageName={this.DetailsImgName}";
 
         public ushort YearOfPublishing { get; set; }
 
+        [Range(
+            ValidationConstants.Movie.AgeRestrictionMinValue,
+            ValidationConstants.Movie.AgeRestrictionMaxValue)]
         public byte AgeRestriction { get; set; }
 
         public TimeSpan Duration { get; set; }

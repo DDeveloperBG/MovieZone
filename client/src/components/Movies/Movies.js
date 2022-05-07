@@ -49,9 +49,26 @@ function Movies() {
     `${process.env.REACT_APP_MOVIES_CATEGORY_API_URL}`
   );
 
-  const currentCategoryName = categories
-    ? (categories.find(({ id }) => id === categoryId) ?? categories[0]).name
-    : "Loading...";
+  let currentCategoryName;
+  if (categories && categories.length > 0) {
+    currentCategoryName = categories
+      ? (categories.find(({ id }) => id === categoryId) ?? categories[0]).name
+      : "Loading...";
+  }
+
+  const [moviesResponse, isLoadingMovies] = useFetchToGet(
+    `${process.env.REACT_APP_MOVIE_API_GET_CATEGORY_MOVIES_URL}?categoryId=${categoryId}&page=${page}`
+  );
+  const { currentPageElements: movies, allPagesCount: allMoviesPagesCount } =
+    moviesResponse ?? { currentPageElements: [], allPagesCount: 0 };
+
+  if (categories && categories.length === 0) {
+    return (
+      <div className="container">
+        <h1 className="text-center">Sorry, there are still no movies😞</h1>
+      </div>
+    );
+  }
 
   let categoriesDisplayComponent = undefined;
   if (isLoadingCategories) {
@@ -65,12 +82,6 @@ function Movies() {
       />
     );
   }
-
-  const [moviesResponse, isLoadingMovies] = useFetchToGet(
-    `${process.env.REACT_APP_MOVIE_API_GET_CATEGORY_MOVIES_URL}?categoryId=${categoryId}&page=${page}`
-  );
-  const { currentPageElements: movies, allPagesCount: allMoviesPagesCount } =
-    moviesResponse ?? { currentPageElements: [], allPagesCount: 0 };
 
   let moviesDisplayComponent = undefined;
   if (isLoadingMovies) {

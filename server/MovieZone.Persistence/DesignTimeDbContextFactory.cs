@@ -18,7 +18,7 @@
                 .Build();
 
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            var connectionString = configuration.GetConnectionString(GlobalConstants.AppSettings.DatabaseConnectionKey);
+            var connectionString = configuration.GetConnectionString(Globals.AppSettings.DatabaseConnectionKey);
             builder.UseSqlServer(connectionString);
 
             return new ApplicationDbContext(builder.Options);

@@ -16,12 +16,13 @@
     using Microsoft.Extensions.Logging;
     using Microsoft.FeatureManagement;
 
+    using MovieZone.Common;
     using MovieZone.DTOs;
     using MovieZone.Infrastructure.Extension;
     using MovieZone.Infrastructure.Seeding;
     using MovieZone.Persistence;
     using MovieZone.Service;
-    using MovieZone.Services.Mapping;
+    using MovieZone.Service.Mapping;
 
     using Serilog;
 
@@ -58,6 +59,7 @@
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory log)
         {
             AutoMapperConfig.RegisterMappings(typeof(RootDto).GetTypeInfo().Assembly);
+            Globals.AppSettings.ApplicationUrl = this.configuration["ApplicationUrl"];
 
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {

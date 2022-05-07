@@ -4,10 +4,7 @@ import { Form, Button } from "react-bootstrap";
 
 import { auth } from "../../../utils/firebase";
 import FormComponentError from "../../Shared/FormComponentError/FormComponentError";
-import {
-  checkIsUsernameUsed,
-  registerUser,
-} from "../../../services/authService";
+import * as authService from "../../../services/authService";
 
 import "./RegisterUserCredentialsForm.css";
 
@@ -50,7 +47,7 @@ function RegisterUserCredentialsForm() {
       .createUserWithEmailAndPassword(email, password)
       .then(async (userCredential) => {
         navigate("/register/payment/method");
-        await registerUser(username);
+        await authService.registerUser(username);
         await userCredential.user.updateProfile({
           displayName: username,
         });
@@ -90,7 +87,7 @@ function RegisterUserCredentialsForm() {
 
   const usernameOnBlur = async (e, shouldThrowError) => {
     const username = e.target.value;
-    const isUsernameUsed = await checkIsUsernameUsed(username);
+    const isUsernameUsed = await authService.checkIsUsernameUsed(username);
 
     if (isUsernameUsed) {
       setUsernameError("Username is already used.");
