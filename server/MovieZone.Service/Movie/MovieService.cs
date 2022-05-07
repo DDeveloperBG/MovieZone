@@ -11,22 +11,24 @@
     using MovieZone.Persistence.Common.Repositories;
     using MovieZone.Service.Actor;
     using MovieZone.Service.AWS.Storage.MovieStorage;
+    using MovieZone.Service.AWS.Storage.PublicImageStorage;
     using MovieZone.Service.DTOs.Movie;
     using MovieZone.Service.DTOs.Pagination;
+    using MovieZone.Service.Mapping;
     using MovieZone.Service.MoviesCategory;
     using MovieZone.Service.Pagination;
     using MovieZone.Service.Time;
-    using MovieZone.Services.Mapping;
 
     public class MovieService : IMovieService
     {
-        private const string DefaultMoviesCategoryName = GlobalConstants.CategoryMovies.DefaultMoviesCategoryName;
-        private const int PageSize = GlobalConstants.CategoryMovies.PageSize;
+        private const string DefaultMoviesCategoryName = Globals.CategoryMovies.DefaultMoviesCategoryName;
+        private const int PageSize = Globals.CategoryMovies.PageSize;
 
         private readonly ITimeService timeService;
         private readonly IMoviesCategoryService moviesCategoryService;
         private readonly IDeletableEntityRepository<Movie> movieRepository;
         private readonly IPaginationService paginationService;
+        private readonly IPublicImageStorageService publicImageStorageService;
         private readonly IMovieStorageService movieStorageService;
         private readonly IActorService actorService;
 
@@ -36,7 +38,8 @@
             ITimeService timeService,
             IMoviesCategoryService moviesCategoryService,
             IMovieStorageService movieStorageService,
-            IActorService actorService)
+            IActorService actorService,
+            IPublicImageStorageService publicImageStorageService)
         {
             this.movieRepository = movieRepository;
             this.paginationService = paginationService;
@@ -44,6 +47,7 @@
             this.moviesCategoryService = moviesCategoryService;
             this.movieStorageService = movieStorageService;
             this.actorService = actorService;
+            this.publicImageStorageService = publicImageStorageService;
         }
 
         public PaginationDTO<GetMoviesInCategoryMovieDTO> GetMoviesInCategory(
@@ -55,12 +59,12 @@
 
             if (categoryId != "default")
             {
-                query = query.Where(x => x.MoviesCategories
+                query = query.Where(x => x.MovieCategories
                     .Any(x => x.Id == categoryId));
             }
             else
             {
-                query = query.Where(x => x.MoviesCategories
+                query = query.Where(x => x.MovieCategories
                     .Any(x => x.Name == DefaultMoviesCategoryName));
             }
 
@@ -80,18 +84,36 @@
 
         public async Task AddMovieAsync(AddMovieInputDTO input)
         {
-            var fileExtension = Path.GetExtension(input.MovieFile.FileName)[1..].ToLower();
-            this.ValidateAddMovieInputDTO(input, fileExtension);
+            this.ValidateAddMovieInputDTO(input);
 
             var movie = AutoMapperConfig
                 .MapperInstance.Map<AddMovieInputDTO, Movie>(input);
+            movie.Duration = new TimeSpan(input.HoursDuration, input.MinutesDuration, 0);
 
             using (var movieStream = input.MovieFile.OpenReadStream())
             {
                 await this.movieStorageService.UploadFileAsync(
                     movieStream,
                     movie.Id,
-                    fileExtension);
+                    GetFileExtension(input.MovieFile.FileName));
+            }
+
+            movie.DetailsImgName = $"{movie.Id}-detailsImg";
+            using (var detailsImgStream = input.DetailsImg.OpenReadStream())
+            {
+                await this.publicImageStorageService.UploadFileAsync(
+                    detailsImgStream,
+                    movie.DetailsImgName,
+                    GetFileExtension(input.DetailsImg.FileName));
+            }
+
+            movie.ListingImgName = $"{movie.Id}-listingImg";
+            using (var listingImgStream = input.ListingImg.OpenReadStream())
+            {
+                await this.publicImageStorageService.UploadFileAsync(
+                    listingImgStream,
+                    movie.ListingImgName,
+                    GetFileExtension(input.DetailsImg.FileName));
             }
 
             foreach (var actorName in input.ActorsNames)
@@ -121,14 +143,19 @@
                     };
                 }
 
-                movie.MoviesCategories.Add(category);
+                movie.MovieCategories.Add(category);
             }
 
             await this.movieRepository.AddAsync(movie);
             await this.movieRepository.SaveChangesAsync();
         }
 
-        private void ValidateAddMovieInputDTO(AddMovieInputDTO input, string fileExtension)
+        private static string GetFileExtension(string fileName)
+        {
+            return Path.GetExtension(fileName)[1..].ToLower();
+        }
+
+        private void ValidateAddMovieInputDTO(AddMovieInputDTO input)
         {
             int maxYear = this.timeService.GetUtcNow().Year
                 + ValidationConstants.Movie.YearOfPublishingAfterCurrentYearRange;
@@ -140,10 +167,25 @@
                     ValidationConstants.Movie.GetYearOfPublishingExceptionMessage(maxYear));
             }
 
-            if (!ValidationConstants.Movie.MovieFileValidExtensions.Contains(fileExtension))
+            string movieFileExtension = GetFileExtension(input.MovieFile.FileName);
+            if (!ValidationConstants.Movie.MovieFileValidExtensions.Contains(movieFileExtension))
             {
                 throw new ArgumentException(
                     ValidationConstants.Movie.MovieFileExtensionExceptionMessage);
+            }
+
+            string listingImgExtension = GetFileExtension(input.ListingImg.FileName);
+            if (!ValidationConstants.ImageFileValidExtensions.Contains(listingImgExtension))
+            {
+                throw new ArgumentException(
+                    ValidationConstants.ImageFileExtensionExceptionMessage);
+            }
+
+            string detailsImgExtension = GetFileExtension(input.DetailsImg.FileName);
+            if (!ValidationConstants.ImageFileValidExtensions.Contains(detailsImgExtension))
+            {
+                throw new ArgumentException(
+                    ValidationConstants.ImageFileExtensionExceptionMessage);
             }
         }
     }

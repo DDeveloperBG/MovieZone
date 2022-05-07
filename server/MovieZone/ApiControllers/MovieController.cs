@@ -38,7 +38,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = GlobalConstants.AppRoles.AdminRoleName)]
+        [Authorize(Roles = Globals.AppRoles.AdminRoleName)]
         public async Task<IActionResult> AddMovie([FromForm] AddMovieInputDTO input)
         {
             await this.moviesService.AddMovieAsync(input);

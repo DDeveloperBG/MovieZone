@@ -3,8 +3,8 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-
     using MovieZone.Service.AWS.Storage.MovieStorage;
+    using MovieZone.Service.AWS.Storage.PublicImageStorage;
     using MovieZone.Service.User;
 
     [ApiController]
@@ -13,12 +13,15 @@
     {
         private readonly IUserService userService;
         private readonly IMovieStorageService movieStorageService;
+        private readonly IPublicImageStorageService publicImageStorageService;
 
         public FileController(
             IUserService userService,
-            IMovieStorageService movieStorageService)
+            IMovieStorageService movieStorageService,
+            IPublicImageStorageService publicImageStorageService)
         {
             this.movieStorageService = movieStorageService;
+            this.publicImageStorageService = publicImageStorageService;
             this.userService = userService;
         }
 
@@ -35,6 +38,16 @@
             }
 
             var responce = await this.movieStorageService.GetFileByKeyAsync(movieId);
+
+            return this.File(responce.FileStream, responce.FileType);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetPublicImage(
+          [FromQuery]
+          string imageName)
+        {
+            var responce = await this.publicImageStorageService.GetFileByKeyAsync(imageName);
 
             return this.File(responce.FileStream, responce.FileType);
         }

@@ -1,4 +1,4 @@
-﻿namespace MovieZone.Services.Mapping
+﻿namespace MovieZone.Service.Mapping
 {
     using System;
     using System.Collections.Generic;

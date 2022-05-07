@@ -29,7 +29,7 @@
             else
             {
                 serviceCollection.AddDbContext<ApplicationDbContext>(
-                    options => options.UseSqlServer(configuration.GetConnectionString(GlobalConstants.AppSettings.DatabaseConnectionKey)));
+                    options => options.UseSqlServer(configuration.GetConnectionString(Globals.AppSettings.DatabaseConnectionKey)));
             }
         }
 
@@ -109,7 +109,7 @@
         {
             serviceCollection.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>(name: "Application DB Context", failureStatus: HealthStatus.Degraded)
-                .AddUrlGroup(new Uri(configuration.GetValue<string>("applicationUrl")), name: "MovieZone", failureStatus: HealthStatus.Degraded)
+                .AddUrlGroup(new Uri(configuration.GetValue<string>("ApplicationUrl")), name: "MovieZone", failureStatus: HealthStatus.Degraded)
                 .AddSqlServer(configuration.GetConnectionString("OnionArchConn"));
 
             serviceCollection.AddHealthChecksUI(setupSettings: setup =>

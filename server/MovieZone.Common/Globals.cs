@@ -1,6 +1,6 @@
 ﻿namespace MovieZone.Common
 {
-    public static class GlobalConstants
+    public static class Globals
     {
         public static class AppRoles
         {
@@ -9,6 +9,8 @@
 
         public static class AppSettings
         {
+            public static string ApplicationUrl { get; set; }
+
             public const string DatabaseConnectionKey = "DefaultConnection";
         }
 
@@ -22,6 +24,8 @@
         public static class AWS
         {
             public const string S3MovieBucketName = "movie-zone-movies";
+
+            public const string S3ImageBucketName = "movie-zone-images";
         }
     }
 }

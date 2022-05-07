@@ -46,9 +46,4 @@
 		<ProjectReference Include="..\MovieZone.Service\MovieZone.Service.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="ViewModel\" />
-	  <Folder Include="ViewModel\" />
-	</ItemGroup>
-
 </Project>

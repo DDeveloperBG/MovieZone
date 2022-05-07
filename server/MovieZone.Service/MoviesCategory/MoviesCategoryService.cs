@@ -6,7 +6,7 @@
     using MovieZone.Domain.Entities;
     using MovieZone.Persistence.Common.Repositories;
     using MovieZone.Service.DTOs.MoviesCategory;
-    using MovieZone.Services.Mapping;
+    using MovieZone.Service.Mapping;
 
     public class MoviesCategoryService : IMoviesCategoryService
     {

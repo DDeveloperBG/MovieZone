@@ -9,9 +9,8 @@ function useFetchToGet(url, hasToAuthorize) {
     (async () => {
       const body = { method: "GET", headers: {} };
       if (hasToAuthorize) {
-        body.headers.authorization = `Bearer ${await auth.currentUser.getIdToken(
-          true
-        )}`;
+        const idToken = await auth.currentUser.getIdToken(true);
+        body.headers.authorization = `Bearer ${idToken}`;
       }
 
       const response = await fetch(url, body);

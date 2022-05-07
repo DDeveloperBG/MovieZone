@@ -11,6 +11,7 @@
     using MovieZone.Persistence.Repositories;
     using MovieZone.Service.Actor;
     using MovieZone.Service.AWS.Storage.MovieStorage;
+    using MovieZone.Service.AWS.Storage.PublicImageStorage;
     using MovieZone.Service.Firebase;
     using MovieZone.Service.Movie;
     using MovieZone.Service.MoviesCategory;
@@ -35,6 +36,8 @@
                 new FirebaseService(configuration));
             serviceCollection.AddTransient<IMovieStorageService>(_ =>
                 new MovieStorageService(configuration));
+            serviceCollection.AddTransient<IPublicImageStorageService>(_ =>
+               new PublicImageStorageService(configuration));
 
             serviceCollection.AddTransient<IPaginationService, PaginationService>();
 
