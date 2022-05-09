@@ -11,6 +11,7 @@ import MovieDescription from "./components/MovieDescription/MovieDescription";
 import WatchMovie from "./components/WatchMovie/WatchMovie";
 import AdminDashboard from "./components/Admin/AdminDashboard/AdminDashboard";
 import AddMovie from "./components/Admin/AddMovie/AddMovie";
+import VideoChat from "./components/VideoChat/VideoChat";
 
 import AuthContext from "./contexts/AuthContext";
 
@@ -81,6 +82,7 @@ function App() {
           <Route exact path="/movie/watch/:name" element={isAuth(WatchMovie)} />
           <Route path="/admin/dashboard" element={isAdminHoc(AdminDashboard)} />
           <Route path="/admin/addMovie" element={isAdminHoc(AddMovie)} />
+          <Route path="/videoChat" element={isAuth(VideoChat)} />
         </Routes>
       </AuthContext.Provider>
     </>

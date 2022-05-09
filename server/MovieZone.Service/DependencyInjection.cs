@@ -1,7 +1,5 @@
 ﻿namespace MovieZone.Service
 {
-    using Amazon.S3;
-
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -17,6 +15,7 @@
     using MovieZone.Service.MoviesCategory;
     using MovieZone.Service.Pagination;
     using MovieZone.Service.Time;
+    using MovieZone.Service.TwilioVideoChat;
     using MovieZone.Service.User;
 
     public static class DependencyInjection
@@ -32,12 +31,10 @@
             this IServiceCollection serviceCollection,
             IConfiguration configuration)
         {
-            serviceCollection.AddTransient<IFirebaseService>(_ =>
-                new FirebaseService(configuration));
-            serviceCollection.AddTransient<IMovieStorageService>(_ =>
-                new MovieStorageService(configuration));
-            serviceCollection.AddTransient<IPublicImageStorageService>(_ =>
-               new PublicImageStorageService(configuration));
+            serviceCollection.AddTransient<IFirebaseService>(_ => new FirebaseService(configuration));
+            serviceCollection.AddTransient<IMovieStorageService>(_ => new MovieStorageService(configuration));
+            serviceCollection.AddTransient<IPublicImageStorageService>(_ => new PublicImageStorageService(configuration));
+            serviceCollection.AddTransient<IVideoChat>(_ => new VideoChat(configuration));
 
             serviceCollection.AddTransient<IPaginationService, PaginationService>();
 
