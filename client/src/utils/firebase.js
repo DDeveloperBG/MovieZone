@@ -18,6 +18,13 @@ if (!firebase.apps.length) {
 export default firebase;
 export const auth = firebase.auth();
 
+export const getIdToken = () => {
+  if (!auth.currentUser) {
+    throw new Error("Client is not signed.");
+  }
+  return auth.currentUser.getIdToken(true);
+};
+
 // Firebase Analytics
 // import { getAnalytics } from "firebase/analytics";
 // const app = firebase.initializeApp(firebaseConfig);

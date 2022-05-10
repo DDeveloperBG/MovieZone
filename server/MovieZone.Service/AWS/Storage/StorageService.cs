@@ -8,7 +8,7 @@
     using Amazon.S3.Model;
 
     using Microsoft.Extensions.Configuration;
-
+    using MovieZone.Common;
     using MovieZone.Service.DTOs.AWS.Storage;
 
     public abstract class StorageService : IStorageService
@@ -19,8 +19,8 @@
         public StorageService(IConfiguration configuration, string bucketName)
         {
             this.s3Client = new AmazonS3Client(
-                configuration["AWSConfigKeys:AccessKeyId"],
-                configuration["AWSConfigKeys:SecretAccessKey"],
+                configuration[Globals.AWS.Storage.AccessKeyIdConfigKey],
+                configuration[Globals.AWS.Storage.SecretAccessKeyConfigKey],
                 RegionEndpoint.EUWest2);
 
             this.bucketName = bucketName;

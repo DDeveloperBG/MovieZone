@@ -6,7 +6,7 @@
 
     public class PublicImageStorageService : StorageService, IPublicImageStorageService
     {
-        private const string BucketName = Globals.AWS.S3ImageBucketName;
+        private const string BucketName = Globals.AWS.Storage.S3ImageBucketName;
 
         public PublicImageStorageService(IConfiguration configuration)
             : base(configuration, BucketName)

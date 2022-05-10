@@ -6,7 +6,7 @@
 
     public class MovieStorageService : StorageService, IMovieStorageService
     {
-        private const string BucketName = Globals.AWS.S3MovieBucketName;
+        private const string BucketName = Globals.AWS.Storage.S3MovieBucketName;
 
         public MovieStorageService(IConfiguration configuration)
             : base(configuration, BucketName)

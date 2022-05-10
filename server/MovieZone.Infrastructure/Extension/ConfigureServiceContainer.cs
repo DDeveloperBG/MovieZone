@@ -109,7 +109,7 @@
         {
             serviceCollection.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>(name: "Application DB Context", failureStatus: HealthStatus.Degraded)
-                .AddUrlGroup(new Uri(configuration.GetValue<string>("ApplicationUrl")), name: "MovieZone", failureStatus: HealthStatus.Degraded)
+                .AddUrlGroup(new Uri(configuration["ApplicationUrl"]), name: "MovieZone", failureStatus: HealthStatus.Degraded)
                 .AddSqlServer(configuration.GetConnectionString("OnionArchConn"));
 
             serviceCollection.AddHealthChecksUI(setupSettings: setup =>
