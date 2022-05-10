@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { auth } from "../utils/firebase";
+import { getAuthorizeRequestInitObject } from "../utils/requestHelper";
 
 function useFetchToGet(url, hasToAuthorize) {
   const [state, setState] = useState(null);
@@ -7,13 +7,13 @@ function useFetchToGet(url, hasToAuthorize) {
 
   useEffect(() => {
     (async () => {
-      const body = { method: "GET", headers: {} };
+      let initObj = {};
       if (hasToAuthorize) {
-        const idToken = await auth.currentUser.getIdToken(true);
-        body.headers.authorization = `Bearer ${idToken}`;
+        initObj = await getAuthorizeRequestInitObject();
       }
+      initObj.method = "GET";
 
-      const response = await fetch(url, body);
+      const response = await fetch(url, initObj);
       const jsonResponse = await response.json();
       setState(jsonResponse);
       setIsLoading(false);

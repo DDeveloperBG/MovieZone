@@ -1,4 +1,4 @@
-import { auth } from "../utils/firebase";
+import { getIdToken } from "../utils/firebase";
 
 export const checkIsUsernameUsed = async (username) => {
   const url = process.env.REACT_APP_AUTH_API_URL;
@@ -10,7 +10,7 @@ export const checkIsUsernameUsed = async (username) => {
 
 export const registerUser = async (username) => {
   const url = process.env.REACT_APP_AUTH_API_URL;
-  const idToken = await auth.currentUser.getIdToken(true);
+  const idToken = await getIdToken();
   await fetch(url, {
     method: "POST",
     headers: {

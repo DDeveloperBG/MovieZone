@@ -40,6 +40,7 @@ function AuthLinks() {
           id="login-btn"
           to="/login"
           className="btn text-1000 fw-medium order-1 order-lg-0"
+          style={{ boxShadow: "none" }}
         >
           Sign in
         </Link>

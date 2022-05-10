@@ -21,11 +21,27 @@
             public const string DefaultMoviesCategoryName = "New";
         }
 
+        public static class Firebase
+        {
+            public const string ConfigKeys = "FirebaseConfigKeys";
+        }
+
         public static class AWS
         {
-            public const string S3MovieBucketName = "movie-zone-movies";
+            public static class Storage
+            {
+                public const string AccessKeyIdConfigKey = "AWSConfigKeys:AccessKeyId";
+                public const string SecretAccessKeyConfigKey = "AWSConfigKeys:AccessKeyId";
 
-            public const string S3ImageBucketName = "movie-zone-images";
+                public const string S3MovieBucketName = "movie-zone-movies";
+
+                public const string S3ImageBucketName = "movie-zone-images";
+            }
+        }
+
+        public static class VideoChat
+        {
+            public const string ConfigKeys = "TwilioConfigKeys";
         }
     }
 }

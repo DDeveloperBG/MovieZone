@@ -1,6 +1,8 @@
 ﻿namespace MovieZone.ApiControllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
     using MovieZone.Service.DTOs.Twilio;
     using MovieZone.Service.TwilioVideoChat;
 
@@ -15,12 +17,14 @@
             this.videoChat = videoChat;
         }
 
-        [HttpPost]
-        public IActionResult GetTwilioToken([FromBody] GetTwilioTokenInputDTO input)
+        [HttpGet]
+        [Authorize]
+        public IActionResult CreateCall([FromQuery] CreateCallInputDTO input)
         {
-            var jwt = this.videoChat.GetTwilioJwt(input);
+            input.CurrentUserId = this.User.Identity.Name;
+            var responce = this.videoChat.CreateCall(input);
 
-            return this.Ok(new { token = jwt });
+            return this.Ok(responce);
         }
     }
 }

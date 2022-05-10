@@ -11,6 +11,7 @@
 
     using Microsoft.Extensions.Configuration;
 
+    using MovieZone.Common;
     using MovieZone.Service.DTOs.Firebase;
     using MovieZone.Service.Firebase.NewtonsoftNamingStrategies;
 
@@ -27,7 +28,7 @@
             }
 
             FirebaseConfigKeys fbconfig = new FirebaseConfigKeys();
-            configuration.Bind("FirebaseConfigKeys", fbconfig);
+            configuration.Bind(Globals.Firebase.ConfigKeys, fbconfig);
 
             var settings = new JsonSerializerSettings
             {

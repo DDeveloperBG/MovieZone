@@ -4,6 +4,6 @@
 
     public interface IVideoChat
     {
-        string GetTwilioJwt(GetTwilioTokenInputDTO input);
+        CreateCallResultDTO CreateCall(CreateCallInputDTO input);
     }
 }

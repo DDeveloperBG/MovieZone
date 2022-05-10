@@ -65,7 +65,7 @@ function Movies() {
   if (categories && categories.length === 0) {
     return (
       <div className="container">
-        <h1 className="text-center">Sorry, there are still no movies😞</h1>
+        <h1 className="text-center mt-3">Sorry, there are still no movies😞</h1>
       </div>
     );
   }
