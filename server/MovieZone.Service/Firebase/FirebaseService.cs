@@ -9,9 +9,6 @@
 
     using Google.Apis.Auth.OAuth2;
 
-    using Microsoft.Extensions.Configuration;
-
-    using MovieZone.Common;
     using MovieZone.Service.DTOs.Firebase;
     using MovieZone.Service.Firebase.NewtonsoftNamingStrategies;
 
@@ -20,21 +17,19 @@
 
     public class FirebaseService : IFirebaseService
     {
-        public FirebaseService(IConfiguration configuration)
+        private readonly JsonSerializerSettings configKeysJsonSerializationSettings = new JsonSerializerSettings
+        {
+            ContractResolver = new DefaultContractResolver { NamingStrategy = new ConfigKeysNamingStrategy() },
+        };
+
+        public FirebaseService(FirebaseConfigKeys configKeys)
         {
             if (FirebaseApp.DefaultInstance != null)
             {
                 return;
             }
 
-            FirebaseConfigKeys fbconfig = new FirebaseConfigKeys();
-            configuration.Bind(Globals.Firebase.ConfigKeys, fbconfig);
-
-            var settings = new JsonSerializerSettings
-            {
-                ContractResolver = new DefaultContractResolver { NamingStrategy = new ConfigKeysNamingStrategy() },
-            };
-            var json = JsonConvert.SerializeObject(fbconfig, settings);
+            var json = JsonConvert.SerializeObject(configKeys, this.configKeysJsonSerializationSettings);
             FirebaseApp.Create(new AppOptions()
             {
                 Credential = GoogleCredential.FromJson(json),

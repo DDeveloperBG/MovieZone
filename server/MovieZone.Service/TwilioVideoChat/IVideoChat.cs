@@ -1,9 +1,11 @@
 ﻿namespace MovieZone.Service.TwilioVideoChat
 {
+    using System.Threading.Tasks;
+
     using MovieZone.Service.DTOs.Twilio;
 
     public interface IVideoChat
     {
-        CreateCallResultDTO CreateCall(CreateCallInputDTO input);
+        Task<CreateOrJoinConversationResultDTO> CreateOrJoinConversationAsync(CreateOrJoinConversationInputDTO input);
     }
 }

@@ -23,15 +23,14 @@
 
         public static class Firebase
         {
-            public const string ConfigKeys = "FirebaseConfigKeys";
+            public const string ConfigKeysPath = "FirebaseConfigKeys";
         }
 
         public static class AWS
         {
             public static class Storage
             {
-                public const string AccessKeyIdConfigKey = "AWSConfigKeys:AccessKeyId";
-                public const string SecretAccessKeyConfigKey = "AWSConfigKeys:AccessKeyId";
+                public const string ConfigKeysPath = "AWSConfigKeys";
 
                 public const string S3MovieBucketName = "movie-zone-movies";
 
@@ -41,7 +40,7 @@
 
         public static class VideoChat
         {
-            public const string ConfigKeys = "TwilioConfigKeys";
+            public const string ConfigKeysPath = "TwilioConfigKeys";
         }
     }
 }

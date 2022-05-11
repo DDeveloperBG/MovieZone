@@ -1,6 +1,6 @@
 ﻿namespace MovieZone.Service.DTOs.Twilio
 {
-    public class CreateCallResultDTO
+    public class CreateOrJoinConversationResultDTO
     {
         public string AccessToken { get; set; }
 
