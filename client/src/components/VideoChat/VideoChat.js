@@ -10,7 +10,9 @@ const VideoChat = () => {
   const [room, setRoom] = useState(null);
   const [isLoadingRoomData, setIsLoadingRoomData] = useState(true);
   const [callData, isLoadingCallData] = useFetchToGet(
-    `${process.env.REACT_APP_VIDEOCHAT_API_CREATE_CALL_URL}?calledUserId=${2}`,
+    `${
+      process.env.REACT_APP_VIDEOCHAT_API_CREATE_CONVERSATION_URL
+    }?calledUserId=${"DSK2hoQRXrWXbjkr5SrRH7yefkx2"}`,
     true
   );
   const { roomId, accessToken } = callData ?? {

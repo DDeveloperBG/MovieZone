@@ -10,11 +10,11 @@
 
     public class UserService : IUserService
     {
-        private readonly IRepository<ApplicationUser> userRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IFirebaseService firebaseService;
 
         public UserService(
-            IRepository<ApplicationUser> userRepository,
+            IDeletableEntityRepository<ApplicationUser> userRepository,
             IFirebaseService firebaseService)
         {
             this.userRepository = userRepository;
@@ -34,7 +34,7 @@
             var uid = await this.firebaseService.GetUserIdWithIdTokenAsync(idToken);
 
             var userData = await this.firebaseService.GetUserAsync(uid);
-            if (!this.CheckIsUsernameUsed(username))
+            if (this.CheckIsUsernameUsed(username))
             {
                 throw new System.Exception("Username is already used!");
             }
@@ -85,6 +85,14 @@
                 .AllAsNoTracking()
                 .Where(x => x.Id == uid)
                 .Any();
+        }
+
+        public ApplicationUser GetUserById(string id)
+        {
+            return this.userRepository
+                .All()
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
         }
     }
 }

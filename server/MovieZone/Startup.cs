@@ -45,7 +45,8 @@
             services.AddSwaggerOpenAPI();
 
             services.AddScopedServices();
-            services.AddTransientServices(this.configuration);
+            services.AddTransientServices();
+            services.AddServicesConfigurationKeysObjects(this.configuration);
 
             services.AddVersion();
 

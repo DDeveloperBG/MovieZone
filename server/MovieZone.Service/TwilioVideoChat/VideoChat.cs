@@ -1,12 +1,10 @@
 ﻿namespace MovieZone.Service.TwilioVideoChat
 {
-    using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
-    using Microsoft.Extensions.Configuration;
-
-    using MovieZone.Common;
     using MovieZone.Service.DTOs.Twilio;
+    using MovieZone.Service.VideoChatConversation;
 
     using Twilio;
     using Twilio.Jwt.AccessToken;
@@ -15,31 +13,50 @@
     {
         private readonly TwilioSettingsDTO twilioSettingsDTO;
 
-        public VideoChat(IConfiguration configuration)
+        private readonly IVideoChatConversationService videoChatConversationService;
+
+        public VideoChat(
+            TwilioSettingsDTO configSettings,
+            IVideoChatConversationService videoChatConversationService)
         {
-            this.twilioSettingsDTO = new TwilioSettingsDTO();
-            configuration.Bind(Globals.VideoChat.ConfigKeys, this.twilioSettingsDTO);
+            this.twilioSettingsDTO = configSettings;
 
             TwilioClient.Init(this.twilioSettingsDTO.ApiKey, this.twilioSettingsDTO.ApiSecret);
+
+            this.videoChatConversationService = videoChatConversationService;
         }
 
-        public CreateCallResultDTO CreateCall(CreateCallInputDTO input)
+        // TODO: Notify called user
+        public async Task<CreateOrJoinConversationResultDTO> CreateOrJoinConversationAsync(
+            CreateOrJoinConversationInputDTO input)
         {
-            // TODO: Notify called user
-            string roomId = Guid.NewGuid().ToString();
+            var participants = new string[] { input.UserId, input.CalledUserId };
 
-            string accessToken = new Token(
-                   this.twilioSettingsDTO.AccountSid,
-                   this.twilioSettingsDTO.ApiKey,
-                   this.twilioSettingsDTO.ApiSecret,
-                   input.CurrentUserId,
-                   grants: new HashSet<IGrant> { new VideoGrant() }).ToJwt();
+            string roomId = this.videoChatConversationService.GetConversationId(participants);
+            if (string.IsNullOrEmpty(roomId))
+            {
+                roomId = await this.videoChatConversationService.CreateConversationAsync(participants);
+            }
 
-            return new CreateCallResultDTO
+            string accessToken = this.GetAccessToken(input.UserId);
+
+            return new CreateOrJoinConversationResultDTO
             {
                 RoomId = roomId,
                 AccessToken = accessToken,
             };
+        }
+
+        private string GetAccessToken(string identity)
+        {
+            var accessToken = new Token(
+                    this.twilioSettingsDTO.AccountSid,
+                    this.twilioSettingsDTO.ApiKey,
+                    this.twilioSettingsDTO.ApiSecret,
+                    identity,
+                    grants: new HashSet<IGrant> { new VideoGrant() }).ToJwt();
+
+            return accessToken;
         }
     }
 }

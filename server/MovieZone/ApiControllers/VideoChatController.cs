@@ -1,5 +1,8 @@
 ﻿namespace MovieZone.ApiControllers
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -19,10 +22,13 @@
 
         [HttpGet]
         [Authorize]
-        public IActionResult CreateCall([FromQuery] CreateCallInputDTO input)
+        public async Task<IActionResult> CreateOrJoinConversationAsync(
+            [FromQuery]
+            CreateOrJoinConversationInputDTO input)
         {
-            input.CurrentUserId = this.User.Identity.Name;
-            var responce = this.videoChat.CreateCall(input);
+            input.UserId = this.User.Claims.ToList().First(x => x.Type == "user_id").Value;
+            input.UserName = this.User.Identity.Name;
+            var responce = await this.videoChat.CreateOrJoinConversationAsync(input);
 
             return this.Ok(responce);
         }

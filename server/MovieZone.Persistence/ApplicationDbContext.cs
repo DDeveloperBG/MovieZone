@@ -32,6 +32,8 @@
 
         public DbSet<MoviesCategory> MoviesCategories { get; set; }
 
+        public DbSet<VideoChatConversation> VideoChatConversations { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
